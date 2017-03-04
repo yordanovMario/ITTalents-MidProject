@@ -14,7 +14,6 @@ public class User {
 	
 	private boolean confirmedMail;
 	
-	
 	//can be edited
 	private String jobTitle;
 	private String phone;
@@ -80,8 +79,52 @@ public class User {
 	public String getLastName() {
 		return lastName;
 	}
+
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
+	}
+
+	public void setPerHourRate(int perHourRate) {
+		this.perHourRate = perHourRate;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setPortfolio(String portfolio) {
+		this.portfolio = portfolio;
+	}
+
+	public void setAvatar(File avatar) {
+		this.avatar = avatar;
+	}
+
+	public void setSkills(ArrayList<String> skills) {
+		this.skills = skills;
+	}
+
+//	void postJob(Job j){
+//		this.jobsPosted++;
+//		this.posted.add(j);
+//	}
 	
+//	void sendMessage(Message m, User u){
+//		this.sent.add(m);
+//		u.received.add(m);
+//	}
 	
+//	void leaveFeedback(Feedback f, User u){
+//		u.feedback.add(f);
+//	}
 	
 	
 	
