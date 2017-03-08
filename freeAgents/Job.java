@@ -17,11 +17,21 @@ public class Job {
 	private ArrayList<Offer> offers;
 	
 	public Job(User employer, String title, String content, int budget, String category, int requiredExp) {
-		this.employer = employer;
-		this.title = title;
-		this.content = content;
-		this.budget = budget;
-		this.category = category;
+		if(employer!=null){
+			this.employer = employer;
+		}
+		if(title!=null && !title.isEmpty()){
+			this.title = title;
+		}
+		if(content!=null && !content.isEmpty()){
+			this.content = content;
+		}
+		if(budget>0){
+			this.budget = budget;
+		}
+		if(category!=null && !category.isEmpty()){
+			this.category = category;
+		}
 		this.requiredExp = requiredExp;
 		this.status = 1;
 		this.offers = new ArrayList<Offer>();
@@ -40,12 +50,12 @@ public class Job {
 		}
 	}
 	
-	public int getOffersSize(){
-		
-	}
-	
-	public Offer getOffer(){
-		Random rand = new Random()
-	}
+//	public int getOffersSize(){
+//		
+//	}
+//	
+//	public Offer getOffer(){
+//		Random rand = new Random()
+//	}
 	
 }

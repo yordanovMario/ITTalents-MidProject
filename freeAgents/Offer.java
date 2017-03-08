@@ -1,6 +1,7 @@
 package freeAgents;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Offer {
 
@@ -8,16 +9,25 @@ public class Offer {
 	private Job job;
 	private String content;
 	private int price;
-	private Date date;
+	private String date;
 	
 	public Offer(User sender, Job job, String content, int price) {
-		this.sender = sender;
-		this.job = job;
-		this.content = content;
-		this.price = price;
-		this.date = date;
+		if(sender!=null){
+			this.sender = sender;
+		}
+		if(job!=null){
+			this.job = job;
+		}
+		if(content!=null && !content.isEmpty()){
+			this.content = content;
+		}
+		if(price>0){
+			this.price = price;
+		}
+		LocalDateTime dateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		this.date = dateTime.format(formatter);
 	}
-	
 	
 	public String getContent(){
 		return content;
@@ -31,4 +41,12 @@ public class Offer {
 		
 		return sender.getUsername();
 	}
+
+	@Override
+	public String toString() {
+		return "Offer [sender=" + sender + ", job=" + job + ", content=" + content + ", price=" + price + ", date="
+				+ date + "]";
+	}
+	
+	
 }

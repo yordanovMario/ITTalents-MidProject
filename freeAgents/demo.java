@@ -1,6 +1,9 @@
 package freeAgents;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -31,6 +34,13 @@ public class Demo {
 		System.out.println(catalogueJobs);
 		catalogueJobs.get(1).printOffers();
 		catalogueJobs.get(0).printOffers();
+		
+		
+		Offer offer = new Offer(mario, catalogueJobs.get(1), "Oferta", 5);
+		System.out.println(offer);
+		
+		Message message = new Message("message test", "TEST", mario, pavel);
+		System.out.println(message);
 	}
 
 }
