@@ -21,7 +21,7 @@ public class Offer {
 		if(content!=null && !content.isEmpty()){
 			this.content = content;
 		}
-		if(price>job.getBudget()){		// the offer must be higher than the job's budget
+		if(price >= job.getBudget()){		// the offer must be >= the job's budget
 			this.price = price;
 		}
 		LocalDateTime dateTime = LocalDateTime.now();
@@ -38,13 +38,20 @@ public class Offer {
 	}
 	
 	public String getSenderName(){
-		return sender.getUsername();
+		System.out.println(sender.getFirstName() + " " + sender.getLastName());
+		return "";
 	}
 
 	@Override
 	public String toString() {
-		return "Offer [sender=" + sender + ", job=" + job + ", content=" + content + ", price=" + price + ", date="
-				+ date + "]";
+		System.out.println("============================================");
+		System.out.println("-*- Offer -*-");
+		System.out.println("From: " + this.sender.getFirstName() + " " + this.sender.getLastName());
+		System.out.println("Date: " + this.date);
+		System.out.println(this.content);
+		System.out.println("Price: EUR " + this.price);
+		System.out.println("============================================");
+		return "";
 	}
 	
 	

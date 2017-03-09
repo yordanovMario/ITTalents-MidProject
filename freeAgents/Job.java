@@ -46,11 +46,9 @@ public class Job {
 	}
 	
 	public void printOffers(){
+		System.out.println("Offers for Job *" + this.title + "* :");
 		for (int i = 0; i < offers.size(); i++) {
-			System.out.println(offers.get(i).getSenderName());
-			System.out.println(offers.get(i).getContent());
-			System.out.println(offers.get(i).getPrice());
-			System.out.println("==============");
+			System.out.println(offers.get(i));
 		}
 	}
 	

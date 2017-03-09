@@ -12,7 +12,7 @@ public class Feedback {
 	private String date;
 	private int rating;
 
-	public Feedback(String content, User sender, User receiver, int rating) {
+	public Feedback(User sender, User receiver, String content, int rating) {
 		if(content!=null && !content.isEmpty()){
 			this.content = content;
 		}
@@ -52,11 +52,12 @@ public class Feedback {
 	
 	@Override
 	public String toString() {
-		
+		System.out.println("============================================");
 		System.out.println("Feedback from " + getSender().getFirstName() + " " + getSender().getLastName());
 		System.out.println("Date: " + getDate());
 		System.out.println("Rating: " + getRating());
 		System.out.println(getContent());
+		System.out.println("============================================");
 		return "";
 	}
 	

@@ -17,34 +17,25 @@ public class Demo {
 		
 		User pavel = new User("pavel", "ngadgad234A", "paaavkata@gmai.com", "Pavel", "Damyanov");
 		
-		pavel.postJob("job1", "content", 100, "programing", 5);
-		mario.postJob("title", "content", 200, "category", 6);
-		pavel.sendOffer(catalogueJobs.get(0), "alabalanica", 350);
-		pavel.sendOffer(catalogueJobs.get(0), "dgadga", 3511);
-		pavel.sendOffer(catalogueJobs.get(0), "aldgadgadadgadgaabalanica", 310);
-		pavel.sendOffer(catalogueJobs.get(0), "alagadgadbalanica", 330);
+		pavel.postJob("New online store", "I want a new website with online store because I don't like the old one.", 300, "Web Development", 5);
+		mario.postJob("Mobile app for my warehouse", "I want a mobile application to easily manage my warehouse.", 800, "Software Development", 6);
 		
-		mario.sendOffer(catalogueJobs.get(1), "adgadghad", 150);
-		mario.sendOffer(catalogueJobs.get(1), "dgadgad", 333);
-		mario.sendOffer(catalogueJobs.get(1), "gadga", 33);
-		mario.sendOffer(catalogueJobs.get(1), "24fgwvfs", 50);
+		mario.sendOffer(catalogueJobs.get(0), "I can do this!", 400);
+		mario.sendOffer(catalogueJobs.get(0), "OK, here's my offer!", 333);
+		mario.sendOffer(catalogueJobs.get(0), "I have a wrong price :(", 33);
 		
-		System.out.println(mario);
-		System.out.println(pavel);
+		pavel.sendOffer(catalogueJobs.get(1), "Applying for this job! I can do this mobile app!", 1000);
+		pavel.sendOffer(catalogueJobs.get(1), "I can do this job but it will cost you a lot!", 3511);
+		pavel.sendOffer(catalogueJobs.get(1), "I have a wrong price :(", 310);
+		
 		System.out.println(catalogueJobs);
 		catalogueJobs.get(1).printOffers();
 		catalogueJobs.get(0).printOffers();
 		
-		
-		Offer offer = new Offer(mario, catalogueJobs.get(1), "Oferta", 5);
-		System.out.println(offer);
-		
-		System.out.println("======");
-		Message message1 = new Message("message test content", "TEST title", mario, pavel);
+		Message message1 = new Message(mario, pavel, "Question", "Hello, Pavel! Are you going to finish the project in time?");
 		System.out.println(message1);
 		
-		System.out.println("======");
-		Feedback feedback1 = new Feedback("Feedback TEST Content", mario, pavel, 5);
+		Feedback feedback1 = new Feedback(mario, pavel, "Pavel did a very good job and finished the project in time! I would use his services again in the future ", 5);
 		System.out.println(feedback1);
 	}
 
