@@ -17,10 +17,19 @@ public class Message extends Feedback {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 		this.setDate(dateTime.format(formatter)); 
 	}
+	
+	public String getTitle() {
+		return title;
+	}
 
 	@Override
 	public String toString() {
-		return "Message [date=" + getDate() + "]";
+		//return "Message [date=" + getDate() + "]" ;
+		System.out.println("Message from " + getSender().getFirstName() + " " + getSender().getLastName());
+		System.out.println("Date: " + getDate());
+		System.out.println(getTitle());
+		System.out.println(getContent());
+		return "";
 	}
 	
 	

@@ -21,7 +21,7 @@ public class Offer {
 		if(content!=null && !content.isEmpty()){
 			this.content = content;
 		}
-		if(price>0){
+		if(price>job.getBudget()){		// the offer must be higher than the job's budget
 			this.price = price;
 		}
 		LocalDateTime dateTime = LocalDateTime.now();
@@ -38,7 +38,6 @@ public class Offer {
 	}
 	
 	public String getSenderName(){
-		
 		return sender.getUsername();
 	}
 

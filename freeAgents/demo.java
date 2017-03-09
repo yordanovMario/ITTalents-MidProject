@@ -13,9 +13,9 @@ public class Demo {
 
 	public static void main(String[] args) {
 		
-		User mario = new User("mario", "M123456o", "yordanov.mario@yahoo.com", "mario", "ddd");
+		User mario = new User("mario", "M123456o", "yordanov.mario@yahoo.com", "Mario", "Yordanov");
 		
-		User pavel = new User("pavel", "ngadgad234A", "paaavkata@gmai.com", "pavel", "damyanov");
+		User pavel = new User("pavel", "ngadgad234A", "paaavkata@gmai.com", "Pavel", "Damyanov");
 		
 		pavel.postJob("job1", "content", 100, "programing", 5);
 		mario.postJob("title", "content", 200, "category", 6);
@@ -39,8 +39,13 @@ public class Demo {
 		Offer offer = new Offer(mario, catalogueJobs.get(1), "Oferta", 5);
 		System.out.println(offer);
 		
-		Message message = new Message("message test", "TEST", mario, pavel);
-		System.out.println(message);
+		System.out.println("======");
+		Message message1 = new Message("message test content", "TEST title", mario, pavel);
+		System.out.println(message1);
+		
+		System.out.println("======");
+		Feedback feedback1 = new Feedback("Feedback TEST Content", mario, pavel, 5);
+		System.out.println(feedback1);
 	}
 
 }

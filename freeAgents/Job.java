@@ -37,8 +37,12 @@ public class Job {
 		this.offers = new ArrayList<Offer>();
 	}
 	
+	public int getBudget() {
+		return budget;
+	}
+	
 	public void addOffer(Offer offer){
-		offers.add(offer);
+		this.offers.add(offer);
 	}
 	
 	public void printOffers(){
