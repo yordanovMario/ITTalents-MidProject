@@ -8,7 +8,7 @@ public class Job {
 	private User worker;
 	private User employer;
 	private String title;
-	private String content;
+	private String description;
 	private int budget;
 	private String category;
 	private ArrayList<File> files;
@@ -16,15 +16,15 @@ public class Job {
 	private int status;
 	private ArrayList<Offer> offers;
 	
-	public Job(User employer, String title, String content, int budget, String category, int requiredExp) {
+	public Job(User employer, String title, String description, int budget, String category, int requiredExp) {
 		if(employer!=null){
 			this.employer = employer;
 		}
 		if(title!=null && !title.isEmpty()){
 			this.title = title;
 		}
-		if(content!=null && !content.isEmpty()){
-			this.content = content;
+		if(description!=null && !description.isEmpty()){
+			this.description = description;
 		}
 		if(budget>0){
 			this.budget = budget;
