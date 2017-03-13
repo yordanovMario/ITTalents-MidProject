@@ -41,7 +41,10 @@ public class Offer {
 		System.out.println(sender.getFirstName() + " " + sender.getLastName());
 		return "";
 	}
-
+	
+	public User getSender() {
+		return sender;
+	}
 	@Override
 	public String toString() {
 		System.out.println("============================================");

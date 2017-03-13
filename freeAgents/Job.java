@@ -15,6 +15,7 @@ public class Job {
 	private int requiredExp;
 	private int status;
 	private ArrayList<Offer> offers;
+	private Offer acceptedOffer;
 	
 	public Job(User employer, String title, String description, int budget, String category, int requiredExp) {
 		if(employer!=null){
@@ -35,6 +36,7 @@ public class Job {
 		this.requiredExp = requiredExp;
 		this.status = 1;
 		this.offers = new ArrayList<Offer>();
+		this.status = 1;
 	}
 	
 	public int getBudget() {
@@ -43,6 +45,8 @@ public class Job {
 	
 	public void addOffer(Offer offer){
 		this.offers.add(offer);
+		this.worker = offer.getSender();
+		this.status = 2;
 	}
 	
 	public void printOffers(){
@@ -52,12 +56,24 @@ public class Job {
 		}
 	}
 	
-//	public int getOffersSize(){
-//		
-//	}
-//	
-//	public Offer getOffer(){
-//		Random rand = new Random()
-//	}
+	public void acceptOffer(Offer offer){
+		if(offers.contains(offer)){
+			this.acceptedOffer = offer;
+		}
+		this.status = 3;
+	}
+	
+	public void inProgress(){
+		this.status = 4;
+	}
+	
+	public void jobDone(){
+		this.status = 5;
+	}
+	
+	public void openDispute(){
+		this.status = 6;
+	}
+
 	
 }

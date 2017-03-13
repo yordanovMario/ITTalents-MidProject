@@ -4,18 +4,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class Message extends Feedback {
+public class Message{
 
+	private String content;
 	private String title;
+	private User sender;
+	private User receiver;
+	private String date;
+	
 
 	public Message(User sender, User receiver, String title, String content) {
-		super( sender, receiver, content, 1);
 		if(title!=null && !title.isEmpty()){
 			this.title = title;
 		}
 		LocalDateTime dateTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		this.setDate(dateTime.format(formatter)); 
+		this.date = dateTime.format(formatter); 
+		if(sender!=null){
+			this.sender = sender;
+		}
+		if(sender!=null){
+			this.receiver = receiver;
+		}
 	}
 	
 	public String getTitle() {
@@ -31,6 +41,22 @@ public class Message extends Feedback {
 		System.out.println(getContent());
 		System.out.println("============================================");
 		return "";
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public User getSender() {
+		return sender;
+	}
+
+	public User getReceiver() {
+		return receiver;
+	}
+
+	public String getDate() {
+		return date;
 	}
 	
 	

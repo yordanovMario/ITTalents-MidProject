@@ -135,7 +135,9 @@ public class User {
 	}
 
 	public void setAvatar(File avatar) {
-		this.avatar = avatar;
+		if(avatar != null){
+			this.avatar = avatar;
+		}
 	}
 
 	public void setSkills(ArrayList<String> skills) {
