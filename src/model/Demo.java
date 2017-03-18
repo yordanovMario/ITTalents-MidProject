@@ -1,4 +1,5 @@
-package freeAgents;
+package model;
+
 import java.util.ArrayList;
 
 public class Demo {

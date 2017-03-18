@@ -1,4 +1,4 @@
-package freeAgents;
+package model;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ public class User {
 	private String email;
 	private String firstName;
 	private String lastName;
+	private long id;
 	
 	private boolean confirmedMail;
 	private boolean isAdmin;
@@ -110,6 +111,9 @@ public class User {
 		return lastName;
 	}
 
+	public void setId(long id){
+		this.id = id;
+	}
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
 	}
