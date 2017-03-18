@@ -25,17 +25,20 @@ public class UserDAO {
 	}
 	
 	public synchronized void registerUser(User user) throws SQLException{
-		String query = "INSERT INTO Users (fname, lname, username, email, pass) values (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO users (first_name, last_name, username, email, password, level) values (?, ?, ?, ?, ?, ?)";
 		java.sql.PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		st.setString(1, user.getFirstName());
 		st.setString(2, user.getLastName());
 		st.setString(3, user.getUsername());
 		st.setString(4, user.getEmail());
 		st.setString(5, user.getPassword());
+		st.setInt(6, user.getLevel());
 		st.execute();
 	}
 	
-	public void signIn(User user){
+	public void signIn(User user) throws SQLException{
+		String query = ("SELECT from users where username = " + user.getUsername());
+		java.sql.PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		
 	}
 	

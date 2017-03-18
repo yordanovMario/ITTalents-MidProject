@@ -15,9 +15,9 @@ public class DBManager {
 	
 	private static final String DB_IP = "localhost";
 	private static final String DB_PORT = "3306";
-	private static final String DB_NAME = "freeagents";
-	private static final String DB_USER = "admin";
-	private static final String DB_PASS = "admin-123";
+	private static final String DB_NAME = "freeagentsdb";
+	private static final String DB_USER = "freeagents";
+	private static final String DB_PASS = "freeagents.eu71928";
 	private Connection con = null;
 	private DBManager(){
 		
@@ -32,7 +32,7 @@ public class DBManager {
 			con = (Connection) DriverManager.getConnection("jdbc:mysql://" + DB_IP + ":" + DB_PORT + "/" + DB_NAME, DB_USER, DB_PASS);
 		}
 		catch(SQLException e){
-			System.out.println("Error connecting to Database");
+			System.out.println("Error connecting to Database - " + e.getMessage());
 		}
 
 	}

@@ -16,10 +16,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private long id;
-	
-	private boolean confirmedMail;
-	private boolean isAdmin;
-	private boolean isModerator;
+	private int level;
 	
 	//can be edited
 	private String jobTitle;
@@ -41,11 +38,7 @@ public class User {
 	
 	//Statistics:
 	private double rating;
-	private int jobsDone;
-	private int jobsPosted;
-//	private Job lastProject;
-//	level ?
-	
+
 	public User(String username, String password, String email, String firstName, String lastName) {
 		
 		setUsername(username);
@@ -53,7 +46,8 @@ public class User {
 		setEmail(email);
 		setFirstName(firstName);
 		setLastName(lastName);
-		posted = new ArrayList<Job>();
+		this.level = 1;
+		this.posted = new ArrayList<Job>();
 		
 	}
 	
@@ -72,9 +66,9 @@ public class User {
 
 	public void setPassword(String password) {
 		//at least 1 digit,lower case,upper case,no space,at least 8 places
-		if(password.matches(PASSWORD_PATTERN) && !password.isEmpty()){ 
+		//if(password.matches(PASSWORD_PATTERN) && !password.isEmpty()){ 
 			this.password = password;
-		}
+		//}
 	}
 
 	public void setFirstName(String firstName) {
@@ -91,6 +85,10 @@ public class User {
 		}
 	}
 
+	public int getLevel() {
+		return level;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
