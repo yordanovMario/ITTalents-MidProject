@@ -1,23 +1,28 @@
 package model;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Job {
 	
+	private long id;
 	private User worker;
 	private User employer;
 	private String title;
 	private String description;
 	private int budget;
-	private String category;
+	private int category;
 	private ArrayList<File> files;
 	private int requiredExp;
 	private int status;
 	private ArrayList<Offer> offers;
 	private Offer acceptedOffer;
-	
-	public Job(User employer, String title, String description, int budget, String category, int requiredExp) {
+	private boolean sponsored;
+	private LocalDateTime date;
+
+	public Job(User employer, String title, String description, int budget, int category, int requiredExp, boolean sponsored) {
+		this.date = LocalDateTime.now();
 		if(employer!=null){
 			this.employer = employer;
 		}
@@ -30,15 +35,39 @@ public class Job {
 		if(budget>0){
 			this.budget = budget;
 		}
-		if(category!=null && !category.isEmpty()){
+		if(category!=0 && category <= 16){
 			this.category = category;
 		}
+		this.sponsored = sponsored;
 		this.requiredExp = requiredExp;
 		this.status = 1;
 		this.offers = new ArrayList<Offer>();
-		this.status = 1;
 	}
 	
+	public LocalDateTime getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
+	public boolean isSponsored() {
+		return sponsored;
+	}
+
+	public void setSponsored(boolean sponsored) {
+		this.sponsored = sponsored;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getId() {
+		return id;
+	}
+
 	public int getBudget() {
 		return budget;
 	}
@@ -71,6 +100,22 @@ public class Job {
 		this.status = 5;
 	}
 	
+	public User getEmployer() {
+		return employer;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public int getCategory() {
+		return category;
+	}
+
 	public void openDispute(){
 		this.status = 6;
 	}

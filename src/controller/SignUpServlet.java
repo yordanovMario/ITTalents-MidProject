@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet{
 				UserDAO.getInstance().registerUser(u);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
+				System.out.println("SignUp error - " + e.getMessage());
 				page = "SignUp.html";
 			}
 		}
