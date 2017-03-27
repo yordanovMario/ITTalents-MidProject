@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.User;
 import model.dao.UserDAO;
-@WebServlet("/SignUp")
+@WebServlet("/signup")
 public class SignUpServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class SignUpServlet extends HttpServlet{
 		if(fname.isEmpty() || lname.isEmpty() || email.isEmpty() || user.isEmpty() || pass.isEmpty()){
 			valid = false;
 		}
-		String page = "SignUp.html";
+		String page = "signup.html";
 		if(valid){
 			page = "index.html";
 			User u = new User(user, pass, email, fname, lname);
@@ -35,7 +35,7 @@ public class SignUpServlet extends HttpServlet{
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				System.out.println("SignUp error - " + e.getMessage());
-				page = "SignUp.html";
+				page = "signup.html";
 			}
 		}
 		

@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet{
 		
 		String user = req.getParameter("username");
 		String pass = req.getParameter("password");
-		String page = "LogIn.html";
+		String page = "login.html";
 		
 		if(UserDAO.getInstance().validLogin(user, pass)){
 			System.out.println("Do tuk dobre 1");
