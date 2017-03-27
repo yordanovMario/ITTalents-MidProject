@@ -14,7 +14,8 @@ import model.User;
 import model.dao.UserDAO;
 @WebServlet("/signup")
 public class SignUpServlet extends HttpServlet{
-
+	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
 		boolean valid = true;
