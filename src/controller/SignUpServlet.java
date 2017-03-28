@@ -19,30 +19,46 @@ public class SignUpServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
 		boolean valid = true;
+		String page = "SignUpFailed.html";
 		String fname = req.getParameter("fname");
 		String lname = req.getParameter("lname");
 		String email = req.getParameter("email");
 		String user = req.getParameter("username");
 		String pass = req.getParameter("password");
-		if(fname.isEmpty() || lname.isEmpty() || email.isEmpty() || user.isEmpty() || pass.isEmpty()){
+		String passconf	= req.getParameter("password2");
+		
+		if(fname.isEmpty() || lname.isEmpty() || email.isEmpty() || user.isEmpty() || pass.isEmpty() || passconf.isEmpty()){
 			valid = false;
 		}
-		String page = "signup.html";
-		if(valid){
-			page = "index.html";
-			User u = new User(user, pass, email, fname, lname);
-			try {
-				UserDAO.getInstance().registerUser(u);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				System.out.println("SignUp error - " + e.getMessage());
-				page = "signup.html";
-			}
+	
+		boolean second = true;
+		boolean third = true;
+		if(pass != passconf){
+			page = "SignUpPasswords.html";
+			second = false;
 		}
-		
+		if(UserDAO.checkUser(user, email)){
+			page = "SignUpDuplicates.html";
+			third = false;
+		}
+		if(valid && second && third){
+			page = "LogInSuccess.html";
+			register(new User(user, pass, email, fname, lname));
+		}
+
 		RequestDispatcher rq = req.getRequestDispatcher(page);
 		rq.forward(req, resp);
+
 			
+	}
+	
+	private void register(User u){
+		try {
+			UserDAO.getInstance().registerUser(u);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("SignUp error - " + e.getMessage());
+		}
 	}
 	
 }

@@ -40,7 +40,8 @@ public class postJob extends HttpServlet {
 		String page = "PostJob.html";
 		if(valid){
 			page = "index.html";
-			User user = UserDAO.getUser((String)session.getAttribute("username"));
+			User user = UserDAO.getUser(username);
+			System.out.println("user");
 			Job job = new Job(user, title, desc, Integer.parseInt(budget), Integer.parseInt(category), Integer.parseInt(reqExp), Boolean.parseBoolean(sponsored));
 			try {
 				UserDAO.getInstance().postJob(job);

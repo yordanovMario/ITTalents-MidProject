@@ -20,9 +20,15 @@ public class UserDAO {
 
 	private static UserDAO instance;
 	private static HashMap<String, User> users = new HashMap<String, User>();
+	private static HashSet<String> emails = new HashSet<String>();
 	private static HashMap<Long, Job> jobs = new HashMap<Long, Job>();	
 	private UserDAO(){
-		
+		try {
+			importUsersFromDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static synchronized UserDAO getInstance(){
@@ -40,9 +46,10 @@ public class UserDAO {
 			User temp;
 			while(res.next()){
 				temp = new User(res.getString("username"), res.getString("password"),
-						res.getString("email"),	res.getString("firstName"), res.getString("lastName"));
-				temp.setId(res.getLong("id"));
+						res.getString("email"),	res.getString("first_name"), res.getString("last_name"));
+				temp.setId(res.getLong("user_id"));
 				users.put(temp.getUsername(), temp);
+				emails.add(temp.getEmail());
 			}
 		}
 		return users;
@@ -102,6 +109,7 @@ public class UserDAO {
 		st.setInt(4, job.getCategory());
 		st.setInt(5, 1);
 		System.out.println("Job: " + job.getTitle());
+		System.out.println();
 		System.out.println(job.getEmployer().getId());
 		st.setLong(6, job.getEmployer().getId());
 		
@@ -118,6 +126,13 @@ public class UserDAO {
 	public static synchronized User getUser(String username){
 		User user = users.get(username);
 		return user;
+	}
+
+	public static boolean checkUser(String user, String email) {
+		if(users.containsKey(user) || emails.contains(email)){
+			return true;
+		}
+		return false;
 	}
 	
 	

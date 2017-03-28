@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.DBManager;
-import model.User;
 import model.dao.UserDAO;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet{
@@ -22,7 +21,7 @@ public class LoginServlet extends HttpServlet{
 		
 		String user = req.getParameter("username");
 		String pass = req.getParameter("password");
-		String page = "login.html";
+		String page = "LogInFailed.html";
 		
 		if(UserDAO.getInstance().validLogin(user, pass)){
 			System.out.println("Do tuk dobre 1");
@@ -31,8 +30,8 @@ public class LoginServlet extends HttpServlet{
 			HttpSession session=req.getSession();  
 	        session.setAttribute("username", user);  
 		}		
-		RequestDispatcher rq = req.getRequestDispatcher(page);
-		rq.forward(req, resp);
+		RequestDispatcher rd= req.getRequestDispatcher(page);
+		rd.forward(req, resp);
 	}
 	
 	
