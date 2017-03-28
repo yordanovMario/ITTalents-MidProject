@@ -35,14 +35,14 @@ public class postJob extends HttpServlet {
 		String category = req.getParameter("category");
 		String reqExp = req.getParameter("reqExp");
 		String sponsored = req.getParameter("sponsored");
-		String page = "PostJobFailed.html";
-		System.out.println(title);
-		System.out.println(desc);
-		System.out.println(budget);
-		System.out.println(category);
-		System.out.println(reqExp);
-		System.out.println(sponsored);
-		
+		boolean isSponsored;
+		if(sponsored != null){
+			isSponsored = true;
+		}
+		else{
+			isSponsored = false;
+		}
+		String page = "index.jsp";
 		if (session != null){
 			if (session.getAttribute("username") != null){
 				username = (String) session.getAttribute("username");
@@ -51,11 +51,8 @@ public class postJob extends HttpServlet {
 				}
 				
 				if(valid){
-					page = "index.jsp";
 					User user = UserDAO.getUser(username);
-					System.out.println("edno: " + username);
 					Job job = new Job(user, title, desc, Integer.parseInt(budget), Integer.parseInt(category), Integer.parseInt(reqExp), Boolean.parseBoolean(sponsored));
-					System.out.println("tuka " + job.getEmployer());
 					try {
 						UserDAO.getInstance().postJob(job);
 					} catch (SQLException e) {

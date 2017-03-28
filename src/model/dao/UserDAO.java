@@ -96,24 +96,20 @@ public class UserDAO {
 	}
 	
 	public synchronized void postJob(Job job) throws SQLException{
-		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id, user_worker_id) values (?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id) values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		st.setString(1, job.getTitle());
 		st.setString(2, job.getDescription());
 		st.setInt(3, job.getBudget());
 		st.setInt(4, job.getCategory());
 		st.setInt(5, 1);
-		System.out.println("Job: " + job.getTitle());
-		System.out.println("dve: " + job.getEmployer());
-		System.out.println("tri: " + job.getEmployer().getId());
 		st.setLong(6, job.getEmployer().getId());
-		st.setInt(7, 1);
+		//st.setInt(7, 2);
 		
 		st.execute();
 		ResultSet res = st.getGeneratedKeys();
 		res.next();
 		long id = res.getLong(1);
-		System.out.println(id);
 		job.setId(id);
 		jobs.put(job.getId(), job);
 		System.out.println("job is posted: " + jobs.get(job.getId()));

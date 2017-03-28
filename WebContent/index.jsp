@@ -9,12 +9,12 @@
 <body>
 <%HttpSession sess = request.getSession(false); %>
 <%if (session == null || session.getAttribute("username") == null) { %>
-<form action="login.html" method="get">
+<form action="LogIn.html" method="get">
 <p align="right">
 	<button type="submit">LOGIN</button>
 </p>
 </form>
-<form action="register.html" method="get">
+<form action="SignUp.html" method="get">
 <p align="right">
 	<button type="submit">register</button>
 </p>
