@@ -24,11 +24,11 @@ public class LoginServlet extends HttpServlet{
 		String page = "LogInFailed.html";
 		
 		if(UserDAO.getInstance().validLogin(user, pass)){
-			System.out.println("Do tuk dobre 1");
 			//page = "index.html";
 			page = "index.jsp";
 			HttpSession session=req.getSession();  
-	        session.setAttribute("username", user);  
+	        session.setAttribute("username", user);
+	        session.setAttribute("logged", true);
 		}		
 		RequestDispatcher rd= req.getRequestDispatcher(page);
 		rd.forward(req, resp);

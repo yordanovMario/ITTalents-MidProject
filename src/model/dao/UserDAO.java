@@ -87,21 +87,16 @@ public class UserDAO {
 
 	public synchronized boolean validLogin(String username, String password) {
 		if(users.containsKey(username)){
-			System.out.println("Do tuk dobre 1");
 			if(users.get(username).getPassword().equals(password)){
-				System.out.println(users.get(username));
-				System.out.println("Pass and username match with DB");
+				System.out.println("Pass and username match with DB. User " + username + " logged in.");
 				return true;
 			}
 		}
-		System.out.println(username);
-		System.out.println(password);
-		System.out.println("Do tuk dobre 2");
 		return false;
 	}
 	
 	public synchronized void postJob(Job job) throws SQLException{
-		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id) values (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id, user_worker_id) values (?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		st.setString(1, job.getTitle());
 		st.setString(2, job.getDescription());
@@ -109,9 +104,10 @@ public class UserDAO {
 		st.setInt(4, job.getCategory());
 		st.setInt(5, 1);
 		System.out.println("Job: " + job.getTitle());
-		System.out.println();
-		System.out.println(job.getEmployer().getId());
+		System.out.println("dve: " + job.getEmployer());
+		System.out.println("tri: " + job.getEmployer().getId());
 		st.setLong(6, job.getEmployer().getId());
+		st.setInt(7, 1);
 		
 		st.execute();
 		ResultSet res = st.getGeneratedKeys();
@@ -128,11 +124,25 @@ public class UserDAO {
 		return user;
 	}
 
-	public static boolean checkUser(String user, String email) {
+	public synchronized boolean checkUser(String user, String email) {
 		if(users.containsKey(user) || emails.contains(email)){
 			return true;
 		}
 		return false;
+	}
+	public static synchronized User getProfile(String username) throws SQLException{
+		String query = "SELECT username, password, email, first_name, last_name FROM users WHERE username = ?";
+		PreparedStatement ps1 = DBManager.getInstance().getConnection().prepareStatement(query);
+		ps1.setString(1, username);
+		ResultSet rs1 = ps1.executeQuery();
+		rs1.next();
+		String uname = rs1.getString(1);
+		String pass = rs1.getString(2);
+		String mail = rs1.getString(3);
+		String fname = rs1.getString(4);
+		String lname = rs1.getString(5);
+		User user = new User(uname, pass, mail, fname, lname);
+		return user;
 	}
 	
 	

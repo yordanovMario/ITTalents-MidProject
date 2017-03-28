@@ -22,7 +22,6 @@ public class DBManager {
 	private DBManager(){
 		
 		ArrayList<User> users = new ArrayList<User>();
-		System.out.println("Start");
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {

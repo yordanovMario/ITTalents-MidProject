@@ -33,32 +33,29 @@ public class SignUpServlet extends HttpServlet{
 	
 		boolean second = true;
 		boolean third = true;
-		if(pass != passconf){
+		if(!pass.equals(passconf)){
 			page = "SignUpPasswords.html";
 			second = false;
 		}
-		if(UserDAO.checkUser(user, email)){
+		if(UserDAO.getInstance().checkUser(user, email)){
 			page = "SignUpDuplicates.html";
 			third = false;
 		}
 		if(valid && second && third){
 			page = "LogInSuccess.html";
-			register(new User(user, pass, email, fname, lname));
+			try {
+				User u = new User(user, pass, email, fname, lname);
+				UserDAO.getInstance().registerUser(u);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("SignUp error - " + e.getMessage());
+			}
 		}
 
 		RequestDispatcher rq = req.getRequestDispatcher(page);
 		rq.forward(req, resp);
 
 			
-	}
-	
-	private void register(User u){
-		try {
-			UserDAO.getInstance().registerUser(u);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("SignUp error - " + e.getMessage());
-		}
 	}
 	
 }
