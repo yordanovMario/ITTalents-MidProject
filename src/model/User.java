@@ -146,12 +146,15 @@ public class User {
 		this.skills = skills;
 	}
 
-	void postJob(String title, String description, int budget, String category, int requiredExp){
-		Job job = new Job(this, title, description, budget, category, requiredExp);
+	void postJob(String title, String description, int budget, int category, int requiredExp, boolean sponsored){
+		Job job = new Job(this, title, description, budget, category, requiredExp, sponsored);
 		this.posted.add(job);
-		Demo.catalogueJobs.add(job);
 	}
 	
+	public long getId() {
+		return id;
+	}
+
 	void sendOffer(Job job, String content, int price){
 		Offer offer = new Offer(this, job, content, price);
 		job.addOffer(offer);

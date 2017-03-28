@@ -58,7 +58,7 @@ public class UserDAO {
 		st.setString(3, user.getUsername());
 		st.setString(4, user.getEmail());
 		st.setString(5, user.getPassword());
-		st.setInt(6, 1);
+		//st.setInt(6, 1);
 		st.execute();
 		ResultSet res = st.getGeneratedKeys();
 		res.next();
@@ -83,6 +83,7 @@ public class UserDAO {
 			System.out.println("Do tuk dobre 1");
 			if(users.get(username).getPassword().equals(password)){
 				System.out.println(users.get(username));
+				System.out.println("Pass and username match with DB");
 				return true;
 			}
 		}
@@ -93,15 +94,17 @@ public class UserDAO {
 	}
 	
 	public synchronized void postJob(Job job) throws SQLException{
-		String query = "INSERT INTO jobs (title, description, budget, category_id, status) values (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id) values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		st.setString(1, job.getTitle());
 		st.setString(2, job.getDescription());
 		st.setInt(3, job.getBudget());
 		st.setInt(4, job.getCategory());
 		st.setInt(5, 1);
+		System.out.println("Job: " + job.getTitle());
+		System.out.println(job.getEmployer().getId());
+		st.setLong(6, job.getEmployer().getId());
 		
-		//st.setInt(6, user.getLevel());
 		st.execute();
 		ResultSet res = st.getGeneratedKeys();
 		res.next();

@@ -33,6 +33,7 @@ public class postJob extends HttpServlet {
 		String category = req.getParameter("category");
 		String reqExp = req.getParameter("reqExp");
 		String sponsored = req.getParameter("sponsored");
+		
 		if(title.isEmpty() || desc.isEmpty() || budget.isEmpty() || category.isEmpty() || reqExp.isEmpty()){
 			valid = false;
 		}
