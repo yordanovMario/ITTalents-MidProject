@@ -41,10 +41,15 @@ public class BrowseJobs extends HttpServlet {
 		case 4:
 			comp = new CompBySponsored();
 		default:
-			comp = new CompBySponsored();;
+			comp = new CompByLately();
 		}
 		TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(comp);
-		response.getWriter().append(jobs.toString());
+		response.getWriter().append("<html><head><title>Browse all jobs :: FreeAgents.eu - online platform for freelancers</title></head><body>");
+		for(Job j : jobs){
+			response.getWriter().append(j.toString());
+			response.getWriter().append("<br>");
+		}
+		response.getWriter().append("</body></html>");
 		
 	}
 

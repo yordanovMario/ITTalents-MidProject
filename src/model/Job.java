@@ -119,6 +119,13 @@ public class Job {
 	public void openDispute(){
 		this.status = 6;
 	}
+	
+	@Override
+	public String toString() {
+		String job = "<h3>Title: "+getTitle()+"</h3><p>Description: "+getDescription()+"</p><p>From: "+
+	getEmployer().getFirstName()+" "+getEmployer().getLastName()+"</p><p>Budget: "+getBudget()+" $</p><a href='SendOffer.html'>Send Offer</a>";
+		return job;
+	}
 
 	
 }

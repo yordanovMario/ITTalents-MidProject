@@ -21,10 +21,11 @@ public class UserDAO {
 	private static UserDAO instance;
 	private static HashMap<String, User> users = new HashMap<String, User>();
 	private static HashSet<String> emails = new HashSet<String>();
-	private static HashMap<Long, Job> jobs = new HashMap<Long, Job>();	
+	private static HashSet<Job> jobs = new HashSet<Job>();	
 	private UserDAO(){
 		try {
 			importUsersFromDB();
+			importJobsFromDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,6 +56,21 @@ public class UserDAO {
 		return users;
 	}
 	
+	public HashSet<Job> importJobsFromDB() throws SQLException{
+		if(jobs.isEmpty()){
+			String query = "SELECT j.title, j.description, j.budget, j.category_id, u.username FROM jobs j JOIN users u ON j.user_employer_id = u.user_id";
+			java.sql.PreparedStatement st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
+			ResultSet res = st.executeQuery();
+			User temp;
+			Job job;
+			while(res.next()){
+				temp = users.get(res.getString("username"));
+				job = new Job(temp, res.getString("title"), res.getString("description"), Integer.parseInt(res.getString("budget")), Integer.parseInt(res.getString("category_id")), 3, false);
+				jobs.add(job);
+			}
+		}
+		return jobs;
+	}
 	public synchronized void registerUser(User user) throws SQLException{
 		//String query = "INSERT INTO users (first_name, last_name, username, email, password, level_id) values (?, ?, ?, ?, ?, ?)";
 		String query = "INSERT INTO users (first_name, last_name, username, email, password) values (?, ?, ?, ?, ?)";
@@ -78,9 +94,10 @@ public class UserDAO {
 	}
 	
 	public TreeSet<Job> getAllJobs(Comparator comp){
+		System.out.println(jobs);
 		TreeSet<Job> temp = new TreeSet<Job>(comp);
-		for (int i = 0; i < jobs.size(); i++) {
-			temp.add(jobs.get(i));
+		for (Job j : jobs) {
+			temp.add(j);
 		}
 		return temp;
 	}
@@ -111,8 +128,7 @@ public class UserDAO {
 		res.next();
 		long id = res.getLong(1);
 		job.setId(id);
-		jobs.put(job.getId(), job);
-		System.out.println("job is posted: " + jobs.get(job.getId()));
+		jobs.add(job);
 	}
 	
 	public static synchronized User getUser(String username){
