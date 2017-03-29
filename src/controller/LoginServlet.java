@@ -34,9 +34,6 @@ public class LoginServlet extends HttpServlet{
 		rd.forward(req, resp);
 	}
 	
-	
-	
-	
 	public void destroy(){
 		try{
 			DBManager.getInstance().getConnection().close();
