@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,17 +19,14 @@ public class LogoutServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
-		response.setContentType("text/html");  
-		PrintWriter out=response.getWriter();  
-		//request.getSession().setAttribute("username", null);
 		HttpSession session=request.getSession();  
-		session.invalidate();  
-		request.getRequestDispatcher("LogIn.html").include(request, response);  
+		session.invalidate();
+		RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
+		
 		response.setHeader("Pragma", "No-cache");
 		response.setDateHeader("Expires", 0);
 		response.setHeader("Cache-Control", "no-cache");
-		out.print("You are successfully logged out!");  
-		
-		out.close();  
+		rd.forward(request, response);
+	
 	}  
 }  

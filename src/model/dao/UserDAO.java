@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.security.MessageDigest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,7 +74,7 @@ public class UserDAO {
 	}
 	public synchronized void registerUser(User user) throws SQLException{
 		//String query = "INSERT INTO users (first_name, last_name, username, email, password, level_id) values (?, ?, ?, ?, ?, ?)";
-		String query = "INSERT INTO users (first_name, last_name, username, email, password) values (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO users (first_name, last_name, username, email, password) values (?, ?, ?, ?, md5(?))";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		
 		st.setString(1, user.getFirstName());
@@ -104,6 +105,7 @@ public class UserDAO {
 
 	public synchronized boolean validLogin(String username, String password) {
 		if(users.containsKey(username)){
+			MessageDigest m;
 			if(users.get(username).getPassword().equals(password)){
 				System.out.println("Pass and username match with DB. User " + username + " logged in.");
 				return true;

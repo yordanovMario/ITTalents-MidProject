@@ -1,3 +1,4 @@
+<%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,8 +8,8 @@
 <title>FreeAgents.eu :: Online platform that connects freelancers and employers</title>
 </head>
 <body>
-<%HttpSession sess = request.getSession(false); %>
-<%if (session == null || session.getAttribute("username") == null) { %>
+<%HttpSession sess = request.getSession(false);
+if (sess == null || sess.getAttribute("username") == null) { %>
 <form action="LogIn.html" method="get">
 <p align="right">
 	<button type="submit">LOGIN</button>
@@ -19,14 +20,17 @@
 	<button type="submit">register</button>
 </p>
 </form>
-<%} else { %>
-<a href="profile.jsp">Hello, </a><% %>
+<%} else { 
+//String name = users.get(sess.getAttribute("username")).getName();%>
+<%= session.getId() %>
+
+<a href="profile.jsp">Hello, </a><% //response.getWriter().append(name); %>
 <form action="profile" method="get">
 <p align="right">
 	<button type="submit">Profile</button>
 </p>
 </form>
-<form action="LogOut.html" method="get">
+<form action="logout" method="get">
 <p align="right">
 	<button type="submit">Log Out</button>
 </p>
