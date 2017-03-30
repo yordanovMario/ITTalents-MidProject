@@ -255,18 +255,18 @@ public class UserDAO {
 		users.remove(user.getUsername());
 		users.put(user.getUsername(), user);
 	}
+	
 	public static synchronized void getMessages(User user) throws SQLException{
-		String query = "select m.date, m.title, m.content, u.first_name as 'Inbox of' from messages m join users u on m.user_id = u.user_id";
+		String query = "select m.date, m.title, m.content, u.first_name from messages m join users u on m.user_id = u.user_id";
 		PreparedStatement ps;
 		try {
 			ps = DBManager.getInstance().getConnection().prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				String title = rs.getString(1);
-				String phone = rs.getString(2);
-				String about_me = rs.getString(3);
-				String country = rs.getString(4);
-				int level = rs.getInt(10);
+				String date = rs.getString(1);
+				String title = rs.getString(2);
+				String content = rs.getString(3);
+				String first_name = rs.getString(4);
 			}
 		}
 		catch(SQLException e){
