@@ -24,7 +24,7 @@ if(!logged){
 				<div class="flowe-logo"></div>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<a href="PostJob.html">Post Job</a>	
+					<a href="postjob.jsp">Post Job</a>	
 					<a href="browsejobs.jsp">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
@@ -40,19 +40,25 @@ if(!logged){
 		</div>
 		<div class="tips">
 		<div>
-				<form method="POST" action="editdata">
-					<p>First name</p><input type="text" name="firstname" value="${user.getFirstName()}"/><br>
-					<p>Last name</p><input type="text" name="lastname" value="${user.getLastName()}"><br>
-					<p>Job Title</p><input type="text" name="jobtitle" value="${user.getJobTitle()}"/><br>
-					<p>Phone Number</p><input type="text" name="phone" value="${user.getPhone()}"/><br>
-					<p>Per Hour Rate ($)</p><input type="number" name="perhourrate" placeholder="${user.getPerHourRate()}"/>
-					<p>About me</p><textarea rows="4" cols="50" name="aboutme">${user.getAboutMe()}</textarea>
-					<p>Portfolio</p><textarea rows="4" cols="50" name="portfolio">${user.getAboutMe()}</textarea>
-					
-					<input type="submit" id="post-job-btn" value="Edit my data" />
-				</form>
+			<table>
+				<tr>
+					<td><a href="messages.jsp">My Messages</a></td>
+					<td><a href="jobs.jsp">My Jobs</a></td>
+					<td><a href="feedbacks.jsp">My Feedbacks</a></td>
+				</tr>
+			</table>
+			<form method="POST" action="editdata">
+				<p>First name</p><input type="text" name="firstname" value="${user.getFirstName()}"/><br>
+				<p>Last name</p><input type="text" name="lastname" value="${user.getLastName()}"><br>
+				<p>Job Title</p><input type="text" name="jobtitle" value="${user.getJobTitle()}"/><br>
+				<p>Phone Number</p><input type="text" name="phone" value="${user.getPhone()}"/><br>
+				<p>Per Hour Rate ($)</p><input type="number" name="perhourrate" placeholder="${user.getPerHourRate()}"/>
+				<p>About me</p><textarea rows="4" cols="50" name="aboutme">${user.getAboutMe()}</textarea>
+				<p>Portfolio</p><textarea rows="4" cols="50" name="portfolio">${user.getAboutMe()}</textarea>
+				
+				<input type="submit" id="post-job-btn" value="Edit my data" />
+			</form>
 			</div>
-			<p>Find global talent when you need it. Stay flexible.</p>
 			</div>
 		</div>
 		</section>

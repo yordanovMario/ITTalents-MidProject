@@ -1,6 +1,8 @@
 package model.dao;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +14,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeSet;
+
+import org.apache.commons.codec.binary.Hex;
 
 import model.User;
 import model.DBManager;
@@ -153,15 +157,29 @@ public class UserDAO {
 
 	public synchronized boolean validLogin(String username, String password) {
 		if(users.containsKey(username)){
-			MessageDigest m;
-			if(users.get(username).getPassword().equals(password)){
+			String result = md5(password);
+			if(users.get(username).getPassword().equals(result)){
 				System.out.println("Pass and username match with DB. User " + username + " logged in.");
 				return true;
 			}
 		}
 		return false;
 	}
-	
+	private String md5(String pass){
+		try{
+			MessageDigest messageDigest;
+			messageDigest = MessageDigest.getInstance("MD5");
+			messageDigest.reset();
+			messageDigest.update(pass.getBytes(Charset.forName("UTF8")));
+			final byte[] resultByte = messageDigest.digest();
+			final String result = Hex.encodeHexString(resultByte);
+			return result;
+		}
+		catch(Exception e){
+			
+		}
+		return pass;
+	}
 	public synchronized void postJob(Job job) throws SQLException{
 		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id) values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
@@ -237,6 +255,23 @@ public class UserDAO {
 		users.remove(user.getUsername());
 		users.put(user.getUsername(), user);
 	}
-	
+	public static synchronized void getMessages(User user) throws SQLException{
+		String query = "select m.date, m.title, m.content, u.first_name as 'Inbox of' from messages m join users u on m.user_id = u.user_id";
+		PreparedStatement ps;
+		try {
+			ps = DBManager.getInstance().getConnection().prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				String title = rs.getString(1);
+				String phone = rs.getString(2);
+				String about_me = rs.getString(3);
+				String country = rs.getString(4);
+				int level = rs.getInt(10);
+			}
+		}
+		catch(SQLException e){
+			
+		}
+	}
 }
 

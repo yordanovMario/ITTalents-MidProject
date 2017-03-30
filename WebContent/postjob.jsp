@@ -12,8 +12,8 @@
 				<div class="flowe-logo"></div>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<a href="postJob.html">Post Job</a>	
-					<a href="#">Browse Job Offers</a>
+					<a href="postjob.jsp">Post Job</a>
+					<a href="browsejobs.jsp">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
 						<p class="flowe-signup-button">${user.getFirstName()}</p>
@@ -66,7 +66,7 @@
  		</div>
 		<div class="flowe-footer">
 			<div class="flowe-logo-footer"> 
-				<img src="Images/flowe-header-logo.png">
+				<img src="logo.png">
 			</div>
 			<p>&copy; 2017 Free Agents LTD. All rights reserved.</p>
 		</div>

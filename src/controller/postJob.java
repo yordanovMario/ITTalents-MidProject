@@ -58,7 +58,7 @@ public class postJob extends HttpServlet {
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						System.out.println("Job posting error - " + e.getMessage());
-						page = "PostJobError.html";
+						page = "postjob.jsp";
 					}
 				}
 				

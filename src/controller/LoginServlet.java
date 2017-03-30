@@ -25,7 +25,6 @@ public class LoginServlet extends HttpServlet{
 		if(UserDAO.getInstance().validLogin(user, pass)){
 			page = "index.jsp";
 			User u = UserDAO.getUser(user);
-			System.out.println(u);
 			HttpSession session=req.getSession();  
 	        session.setAttribute("user", u);
 	        session.setAttribute("name", u.getFirstName());
