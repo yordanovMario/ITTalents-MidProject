@@ -48,16 +48,8 @@ public class BrowseJobs extends HttpServlet {
 		}
 		TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(comp);
 		HttpSession session = request.getSession(false);
-		boolean logged = (Boolean) request.getSession().getAttribute("logged");
-		if (session.getAttribute("logged") != null && logged){
-				User user = UserDAO.getProfile((User) session.getAttribute("username"));
-				HashMap<Integer, String> levels = UserDAO.getLevels();
-				HashMap<Integer, String> countries = UserDAO.getCountries();
-				System.out.println(countries);
-				request.setAttribute("user", user);
-				request.setAttribute("countries", countries);
-				request.setAttribute("levels", levels);
-				session.setAttribute("username", user);
+		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
+				request.setAttribute("jobs", jobs);
 				getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 		}
 		else{

@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%boolean logged = false;
+if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
+	logged = true;
+}%>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -27,7 +33,7 @@
 				<form method="POST" action="postJob">
 					<input type="text" name="title" placeholder="Title" required="required"/>
 					<!--<input type="textarea" name="description" placeholder="Description" required="required"/> -->
-					<textarea rows="4" cols="50" name="description">Enter description here...</textarea>
+					<textarea rows="4" cols="50" name="description" placeholder="Enter description here..."></textarea>
 					<input type="number" name="budget" placeholder="Budget" required="required"/>
 					<!-- select categories from database -->
 					<select name="category" class="categories">
@@ -48,6 +54,12 @@
 					  <option value="14">SEO</option>
 					  <option value="15">Tutorials</option>
 					  <option value="16">Administration</option>
+					</select>
+					<select name="reqExp" class="categories">
+					  <option value="">Select Experience Level</option>
+					  <option value="1">Beginner</option>
+					  <option value="2">Advanced</option>
+					  <option value="3">Expert</option>
 					</select>
 					
 					<input type="submit" id="post-job-btn" value="Post Job" />

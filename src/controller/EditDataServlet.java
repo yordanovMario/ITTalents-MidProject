@@ -17,7 +17,7 @@ import model.dao.UserDAO;
  * Servlet implementation class editDataServlet
  */
 @WebServlet("/editdata")
-public class editDataServlet extends HttpServlet {
+public class EditDataServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

@@ -17,7 +17,7 @@ import model.dao.UserDAO;
  * Servlet implementation class index
  */
 @WebServlet("/index")
-public class indexServlet extends HttpServlet {
+public class IndexServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);

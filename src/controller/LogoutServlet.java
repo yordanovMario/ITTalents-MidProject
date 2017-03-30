@@ -27,6 +27,7 @@ public class LogoutServlet extends HttpServlet {
 		response.setDateHeader("Expires", 0);
 		response.setHeader("Cache-Control", "no-cache");
 		rd.forward(request, response);
+		System.out.println("Logged out");
 	
 	}  
 }  
