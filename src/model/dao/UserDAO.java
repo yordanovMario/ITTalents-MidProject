@@ -258,7 +258,7 @@ public class UserDAO {
 	}
 	
 	public static synchronized void getMessages(User user) throws SQLException{
-		String query = "select m.date, m.title, m.content, u.first_name from messages m join users u on m.user_id = u.user_id";
+		String query = "select m.date, m.title, m.content, u.first_name from messages m join users u on m.receiver_id = u.user_id";
 		PreparedStatement ps;
 		try {
 			ps = DBManager.getInstance().getConnection().prepareStatement(query);
@@ -274,5 +274,40 @@ public class UserDAO {
 			
 		}
 	}
+	
+	public static synchronized void getFeedbacks(User user){
+		String query = "select f.date, f.rating, f.content, u.first_name from feedbacks f join users u on f.receiver_id = u.user_id";
+		PreparedStatement ps;
+		try {
+			ps = DBManager.getInstance().getConnection().prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				String date = rs.getString(1);
+				String rating = rs.getString(2);
+				String content = rs.getString(3);
+				String first_name = rs.getString(4);
+			}
+		} catch (SQLException e) {
+			
+		}
+	}
+	
+//	public static synchronized ArrayList<Job> getMyJobs(User user){
+//		String query = "select j.title, c.name, j.description, j.budget from jobs j join users u on j.user_employer_id = u.user_id join categories c on j.category_id = c.category_id";
+//		PreparedStatement ps;
+//		try {
+//			ps = DBManager.getInstance().getConnection().prepareStatement(query);
+//			ResultSet rs = ps.executeQuery();
+//			
+//			String title = rs.getString(1);
+//			String name = rs.getString(2);
+//			String description = rs.getString(3);
+//			int budget = rs.getInt(4);
+//			
+//		} catch (SQLException e) {
+//			
+//		}
+//		
+//	}
 }
 
