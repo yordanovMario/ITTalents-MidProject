@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.TreeSet;
 
 import javax.servlet.ServletException;
@@ -10,8 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Job;
+import model.User;
 import model.dao.UserDAO;
 import sorters.CompByBudgetAsc;
 import sorters.CompByBudgetDesc;
@@ -24,7 +27,7 @@ import sorters.CompBySponsored;
 @WebServlet("/BrowseJobs")
 public class BrowseJobs extends HttpServlet {
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int sorter = Integer.parseInt(request.getParameter("sorter"));
 		Comparator comp;
 		switch (sorter) {
@@ -44,12 +47,22 @@ public class BrowseJobs extends HttpServlet {
 			comp = new CompByLately();
 		}
 		TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(comp);
-		response.getWriter().append("<html><head><title>Browse all jobs :: FreeAgents.eu - online platform for freelancers</title></head><body>");
-		for(Job j : jobs){
-			response.getWriter().append(j.toString());
-			response.getWriter().append("<br>");
+		HttpSession session = request.getSession(false);
+		boolean logged = (Boolean) request.getSession().getAttribute("logged");
+		if (session.getAttribute("logged") != null && logged){
+				User user = UserDAO.getProfile((User) session.getAttribute("username"));
+				HashMap<Integer, String> levels = UserDAO.getLevels();
+				HashMap<Integer, String> countries = UserDAO.getCountries();
+				System.out.println(countries);
+				request.setAttribute("user", user);
+				request.setAttribute("countries", countries);
+				request.setAttribute("levels", levels);
+				session.setAttribute("username", user);
+				getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 		}
-		response.getWriter().append("</body></html>");
+		else{
+			response.sendRedirect("LogIn.html");
+		}
 		
 	}
 

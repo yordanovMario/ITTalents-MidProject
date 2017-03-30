@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%HttpSession sess = request.getSession(false); %>
-<%if (sess == null || sess.getAttribute("user") == null) {
-}%>
+<%boolean logged = false;%>
+<%if (session != null || session.getAttribute("user") != null) {
+	logged = true;
+}
+if(!logged){
+	response.sendRedirect("LogIn.html");
+}
+%>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -21,8 +26,7 @@
 				<div class="header-menu">
 					<a href="PostJob.html">Post Job</a>	
 					<a href="browsejobs.jsp">Browse Job Offers</a>
-					<a href="messages.jsp">My messages</a>
-					<a href="offers.jsp">My offers</a>
+					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
 						<p class="flowe-signup-button">${user.getFirstName()}</p>
 					</div>
@@ -44,6 +48,7 @@
 					<p>Per Hour Rate ($)</p><input type="number" name="perhourrate" placeholder="${user.getPerHourRate()}"/>
 					<p>About me</p><textarea rows="4" cols="50" name="aboutme">${user.getAboutMe()}</textarea>
 					<p>Portfolio</p><textarea rows="4" cols="50" name="portfolio">${user.getAboutMe()}</textarea>
+					
 					<input type="submit" id="post-job-btn" value="Edit my data" />
 				</form>
 			</div>

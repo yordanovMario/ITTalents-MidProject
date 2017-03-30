@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet{
 			System.out.println(u);
 			HttpSession session=req.getSession();  
 	        session.setAttribute("user", u);
+	        session.setAttribute("name", u.getFirstName());
 	        session.setAttribute("logged", true);
 		}		
 		RequestDispatcher rd= req.getRequestDispatcher(page);

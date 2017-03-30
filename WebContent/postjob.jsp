@@ -14,7 +14,7 @@
 				<div class="header-menu">
 					<a href="postJob.html">Post Job</a>	
 					<a href="#">Browse Job Offers</a>
-					<a href="login.html">My Offers</a>
+					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
 						<p class="flowe-signup-button">${user.getFirstName()}</p>
 					</div>
