@@ -290,5 +290,23 @@ public class UserDAO {
 			
 		}
 	}
+	
+//	public static synchronized ArrayList<Job> getMyJobs(User user){
+//		String query = "select j.title, c.name, j.description, j.budget from jobs j join users u on j.user_employer_id = u.user_id join categories c on j.category_id = c.category_id";
+//		PreparedStatement ps;
+//		try {
+//			ps = DBManager.getInstance().getConnection().prepareStatement(query);
+//			ResultSet rs = ps.executeQuery();
+//			
+//			String title = rs.getString(1);
+//			String name = rs.getString(2);
+//			String description = rs.getString(3);
+//			int budget = rs.getInt(4);
+//			
+//		} catch (SQLException e) {
+//			
+//		}
+//		
+//	}
 }
 
