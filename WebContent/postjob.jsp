@@ -15,14 +15,14 @@ if (session.getAttribute("logged") != null || session.getAttribute("user") != nu
 	<body>
 		<header>
 			<div class="flowe-header">
-				<div class="flowe-logo"></div>
+				<a href="index.jsp"><div class="flowe-logo"></div></a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
 					<a href="postjob.jsp">Post Job</a>
-					<a href="browsejobs.jsp">Browse Job Offers</a>
+					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
-						<p class="flowe-signup-button">${user.getFirstName()}</p>
+						<p class="flowe-signup-button"><a href="profile.jsp">${user.getFirstName()}</a></p>
 					</div>
 				</div>
 			</div>

@@ -20,28 +20,30 @@ import model.dao.UserDAO;
 public class EditDataServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
-		String firstname = request.getParameter("firstname");
-		String lastname = request.getParameter("lastname");
-		String jobtitle = request.getParameter("jobtitle");
-		String phone = request.getParameter("phone");
-		int perhourrate = Integer.parseInt(request.getParameter("perhourrate"));
-		String aboutme = request.getParameter("aboutme");
-		String portfolio = request.getParameter("portfolio");
-		User user = UserDAO.getUser(username);
-		user.setFirstName(firstname);
-		user.setLastName(lastname);
-		user.setJobTitle(jobtitle);
-		user.setPhone(phone);
-		user.setPerHourRate(perhourrate);
-		user.setAboutMe(aboutme);
-		user.setPortfolio(portfolio);
-		try {
-			UserDAO.updateProfile(user);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
+			User user = (User) request.getSession().getAttribute("user");
+			String firstname = request.getParameter("firstname");
+			String lastname = request.getParameter("lastname");
+			String jobtitle = request.getParameter("jobtitle");
+			String phone = request.getParameter("phone");
+			int perhourrate = Integer.parseInt(request.getParameter("perhourrate"));
+			String aboutme = request.getParameter("aboutme");
+			String portfolio = request.getParameter("portfolio");
+			user.setFirstName(firstname);
+			user.setLastName(lastname);
+			user.setJobTitle(jobtitle);
+			user.setPhone(phone);
+			user.setPerHourRate(perhourrate);
+			user.setAboutMe(aboutme);
+			user.setPortfolio(portfolio);
+			try {
+				UserDAO.updateProfile(user);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 		}
 		
 	}

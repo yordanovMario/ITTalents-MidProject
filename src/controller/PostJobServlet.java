@@ -24,7 +24,6 @@ public class PostJobServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		String username;
 		RequestDispatcher rd;
 		
 		boolean valid = true;

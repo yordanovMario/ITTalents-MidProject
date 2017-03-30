@@ -2,11 +2,6 @@ h1 {
 	color: #fff;
 	font-family: impact;
 }
-body {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 16px;
-	background: #292931;
-}
 
 #post-job h2{
 	color: #3e4651;
@@ -14,8 +9,16 @@ body {
 	margin-left: 33%;
 }
 
+#post-job #search-offers  {
+	margin-left: 23%;
+}
+
 .post-job {
 	margin-left: 33%;
+}
+
+.search-job {
+	margin-left: 23%;
 }
 
 #post-job input {
@@ -33,7 +36,8 @@ body {
 	margin-bottom: 10px;
 }
 
-#post-job textarea {
+#post-job textarea,
+#signup textarea {
 	width: 500px;
 	padding: 10px;
 	font-size: 16px;
@@ -45,6 +49,16 @@ body {
 	border-radius: 5px;
 	box-shadow: inset 0px -5px 45px rgba(100,100,100,0.2),0px 1px 1px rgba(255,255,255,0.2);
 	margin-bottom: 10px;
+
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #fff;
+}
+
+#signup textarea {
+	width: 320px;
+	height: 100px;
 }
 
 .categories {
@@ -60,6 +74,11 @@ body {
 	border-radius: 5px;
 	box-shadow: inset 0px -5px 45px rgba(100,100,100,0.2),0px 1px 1px rgba(255,255,255,0.2);
 	margin-bottom: 10px;
+}
+
+.search-job .categories {
+	display: inline;
+	width: 350px;
 }
 
 /*.categories option {

@@ -28,11 +28,11 @@ header {
 }
 
 .flowe-logo {
-	background-image: url("Images/flowe-header-logo.png");
+	background-image: url("logo.png");
 	background-repeat: no-repeat;
 	background-position: left;
 	/*background-size:contain;*/
-	width: 40%;
+	width: 38%;
 	height: 100%;
 	display: inline-block;
 	cursor: pointer;
@@ -49,11 +49,6 @@ header {
     margin-right: 40px;
     cursor: pointer;
 }
-
-/*.header-menu {
-	display: none;
-}
-*/
 
 .header-menu a {
 	display: inline-block;
@@ -73,7 +68,7 @@ header {
 	text-align: center;
 }
 
-.header-menu .flowe-signup-button {
+.header-menu .flowe-signup-button a{
 	padding: 0;
 	margin-top: 3px;
 }
@@ -96,8 +91,9 @@ header {
 	border-color: #FFA500;
 }
 
-.flowe-blue-button:hover p {
-	color: white;
+.flowe-blue-button:hover a {
+	color: #fff;
+	text-decoration: none;
 }
 
 .flowe-signup-button {
@@ -109,35 +105,9 @@ header {
     color: #000;
 }
 
-.flowe-green-button {
-    width: 290px;
-    height: 60px;
-	outline: none;
-    display: block;
-    cursor: pointer;
-    border: none;
-    border-radius: 50px;
-    color: #FFF;
-    text-decoration: none;
-    background-color: #4aba69;
-    margin: 0 auto;
-}
-
-.flowe-green-button:hover {
-	background-color: #3fa65c;
-}
-
-.flowe-button-content {
-	font-size: 23px;
-	font-weight: bold;
-	text-align: center;
-	padding-top: 12px;
-	color: #ffffff;
-}
-
-.flowe-signup-container {
+/*.flowe-signup-container {
 	margin-top: 30px;
-}
+}*/
 
 .flowe-signup-form {
 	width: 95%;
@@ -164,67 +134,6 @@ header {
 	padding-top: 10px;
 	color: #666;
 	margin: 10px 0;
-}
-
-.terms-of-use {
-	border-bottom: 1px solid #ccc;
-	padding: 25px 0 25px 0;
-    margin: 0 auto;
-    text-align: left;
-    width: 75%;
-}
-
-.terms-of-use span {
-	border-bottom: 1px solid #ccc;
-}
-
-.flowe-gmail-container,
-.flowe-office-container {
-	margin: 10px auto;
-    padding: 2px 10px;
-    width: 70%;
-    height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.flowe-signup-gmail p,
-.flowe-signup-office p,
-.flowe-signup-gmail div,
-.flowe-signup-office div {
-	display: inline-block;
-	font-size: 16px;
-    font-weight: 600;
-    margin: 2px 2px;
-}
-
-.flowe-signup-gmail,
-.flowe-signup-office {
-	padding: 6px 0;
-}
-
-.flowe-signup-gmail img {
-	width: 29px;
-	height: 20px;
-}
-
-.flowe-signup-office img {
-	width: 24px;
-	height: 20px;
-}
-
-.flowe-signup_email {
-	display:inline-block;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #ccc;
-	font-size: 20px;
-	text-align: center;
-	width: 90%; /*400px;*/
-	padding: 20px 0;
-	margin-left: 5%;
 }
 
 .flowe-headline {
@@ -254,15 +163,17 @@ header {
 }
 
 .flowe-logo-footer {
-	padding: 0 0 20px 0;
 	width: 100%;
 	border: none;
 	margin: 0;
 }
 
+.flowe-logo-footer img {
+	width: 150px;
+}
+
 .flowe-footer,
 .flowe-footer-menu {
-	margin: 20px 0 0 0;
 	text-align: center;
 	color: #3e4651;
 }
@@ -296,6 +207,21 @@ header {
     letter-spacing: normal;
     text-align: center;
     color: #3e4651;
+}
+
+.profile a {
+	margin: 0 28px;
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1.67;
+    text-align: center;
+    color: #3e4651;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.profile a:hover {
+    color: #FFA500;
 }
 
 .flowe-bot {
@@ -334,7 +260,7 @@ and (min-width: 1224px) {
 	}
 
 	.flowe-signup-button {
-	    padding: 3px 38px;
+	    padding: 3px 0;
 	}
 
 	.flowe-signup-text {
@@ -361,10 +287,10 @@ and (min-width: 1224px) {
 		float: left;
 	}
 	
-	.tips p {
+	/*.tips p {
 		font-size: 22px;
 		margin-right: 22%;
-	}
+	}*/
 	
 	.tips img {
 		width: 65px;
@@ -405,8 +331,7 @@ and (min-width: 1224px) {
 		margin-left: 56%;
 	    margin-top: -25%;
 	}
-
-	.flowe-footer, 
+	
 	.flowe-footer-menu {
 		margin: 50px 0 0 0;
 	}
@@ -414,9 +339,5 @@ and (min-width: 1224px) {
 	.flowe-footer-menu p {
 		display: inline-block;
 		text-align: justify;
-	}
-
-	.flowe-logo-footer {
-	    padding: 0 0 30px 0;
 	}
 }

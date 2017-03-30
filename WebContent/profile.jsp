@@ -13,6 +13,7 @@ if(!logged){
 	<head>
 		<title>${user.getFirstName()}'s profile in FreeAgents.eu</title>
 	 	<link rel="stylesheet" href="post-job.css"/>
+	 	<link rel="stylesheet" href="css.css"/>
 		<link rel="stylesheet" type="text/css" href="signup.css">
 		<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,11 +22,11 @@ if(!logged){
 		<!-- header -->
 		<header>
 			<div class="flowe-header">
-				<div class="flowe-logo"></div>
+				<a href="index.jsp"><div class="flowe-logo"></div></a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
 					<a href="postjob.jsp">Post Job</a>	
-					<a href="browsejobs.jsp">Browse Job Offers</a>
+					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
 						<p class="flowe-signup-button">${user.getFirstName()}</p>
@@ -40,24 +41,30 @@ if(!logged){
 		</div>
 		<div class="tips">
 		<div>
-			<table>
-				<tr>
-					<td><a href="messages.jsp">My Messages</a></td>
-					<td><a href="jobs.jsp">My Jobs</a></td>
-					<td><a href="feedbacks.jsp">My Feedbacks</a></td>
-				</tr>
-			</table>
-			<form method="POST" action="editdata">
-				<p>First name</p><input type="text" name="firstname" value="${user.getFirstName()}"/><br>
-				<p>Last name</p><input type="text" name="lastname" value="${user.getLastName()}"><br>
-				<p>Job Title</p><input type="text" name="jobtitle" value="${user.getJobTitle()}"/><br>
-				<p>Phone Number</p><input type="text" name="phone" value="${user.getPhone()}"/><br>
-				<p>Per Hour Rate ($)</p><input type="number" name="perhourrate" placeholder="${user.getPerHourRate()}"/>
-				<p>About me</p><textarea rows="4" cols="50" name="aboutme">${user.getAboutMe()}</textarea>
-				<p>Portfolio</p><textarea rows="4" cols="50" name="portfolio">${user.getAboutMe()}</textarea>
-				
+			<div class="flowe-footer-menu profile">
+				<p><a href="messages.jsp">My Messages</a></p>
+				<p><a href="jobs.jsp">My Jobs</a></p>
+				<p><a href="feedbacks.jsp">My Feedbacks</a></p>
+ 			</div>				
+			<div id="signup">
+				<form method="POST" action="editdata">
+				<label for="first-name">First name</label>
+				<input type="text" id="first-name" name="firstname" value="${user.getFirstName()}"/>
+				<label for="last-name">Last name</label>
+				<input type="text" id="last-name" name="lastname" value="${user.getLastName()}">
+				<label for="job-title">Job title</label>
+				<input type="text" id="job-title" name="jobtitle" value="${user.getJobTitle()}"/><br>
+				<label for="phone">Phone number</label>
+				<input type="text" id="phone" name="phone" value="${user.getPhone()}"/><br>
+				<label for="per-hour-rate">Per hour rate ($)</label>
+				<input type="number" id="per-hour-rate" name="perhourrate" placeholder="${user.getPerHourRate()}"/>
+				<label for="about-me">About me</label>
+				<textarea rows="4" cols="50" id="about-me" name="aboutme">${user.getAboutMe()}</textarea>
+				<label for="portfolio">Portfolio</label>
+				<textarea rows="4" cols="50" id="portfolio" name="portfolio">${user.getPortfolio()}</textarea>
 				<input type="submit" id="post-job-btn" value="Edit my data" />
-			</form>
+				</form>
+			</div>
 			</div>
 			</div>
 		</div>
@@ -72,7 +79,7 @@ if(!logged){
  		</div>
 		<div class="flowe-footer">
 			<div class="flowe-logo-footer"> 
-				<img src="Images/flowe-header-logo.png">
+				<img src="logo.png">
 			</div>
 			<p>&copy; 2017 Free Agents LTD. All rights reserved.</p>
 		</div>

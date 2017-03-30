@@ -24,7 +24,7 @@ public class ProfileServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		boolean logged = (Boolean) request.getSession().getAttribute("logged");
 		if (session.getAttribute("logged") != null && logged){
-				User user = UserDAO.getProfile((User) session.getAttribute("username"));
+				User user = UserDAO.getProfile((User)session.getAttribute("user"));
 				HashMap<Integer, String> levels = UserDAO.getLevels();
 				HashMap<Integer, String> countries = UserDAO.getCountries();
 				System.out.println(countries);

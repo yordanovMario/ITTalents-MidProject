@@ -24,11 +24,24 @@ import sorters.CompBySponsored;
 /**
  * Servlet implementation class BrowseJobs
  */
-@WebServlet("/BrowseJobs")
+@WebServlet("/browsejobs")
 public class BrowseJobs extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int sorter = Integer.parseInt(request.getParameter("sorter"));
+		int sorter;
+		int category;
+		if(request.getParameter("sort") == null || request.getParameter("sort") == ""){
+			sorter=2;
+		}
+		else{
+			sorter = Integer.parseInt(request.getParameter("sort"));
+		}
+		if(request.getParameter("category") == null || request.getParameter("category") == ""){
+			category=0;
+		}
+		else{
+			category = Integer.parseInt(request.getParameter("category"));
+		} 
 		Comparator comp;
 		switch (sorter) {
 		case 1:
@@ -44,15 +57,19 @@ public class BrowseJobs extends HttpServlet {
 		case 4:
 			comp = new CompBySponsored();
 		default:
-			comp = new CompByLately();
+			comp = new CompByBudgetDesc();
 		}
-		TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(comp);
+		TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(comp, category);
+		//TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(new CompByBudgetAsc());
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
+				User u = (User) session.getAttribute("user");
+				request.setAttribute("user", u);
 				request.setAttribute("jobs", jobs);
-				getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
+				
+				getServletContext().getRequestDispatcher("/browsejobs.jsp").forward(request, response);
 		}
-		else{
+		else{	
 			response.sendRedirect("LogIn.html");
 		}
 		

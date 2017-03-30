@@ -122,8 +122,27 @@ public class Job {
 	
 	@Override
 	public String toString() {
-		String job = "<h3>Title: "+getTitle()+"</h3><p>Description: "+getDescription()+"</p><p>From: "+
-	getEmployer().getFirstName()+" "+getEmployer().getLastName()+"</p><p>Budget: "+getBudget()+" $</p><a href='SendOffer.html'>Send Offer</a>";
+		String job = "<div class=\"search-results\">"
+				+ "<div class=\"result-title\">"
+				+ "<p>Title</p>"
+				+ "<p>"+getTitle()+"</p>"
+				+ "</div>"
+				+ "<div class=\"result-budjet\">"
+				+ "<p>Budjet</p>"
+				+ "<p>"+getBudget()+"</p>"
+				+ "</div>"
+				+ "<div class=\"result-description\">"
+				+ "<p>Description</p>"
+				+ "<p>"+getDescription()+"</p>"
+				+ "</div>"
+				+ "<div class=\"result-user\">"
+				+ "<p>User</p>"
+				+ "<p>"+getEmployer().getLastName()+"</p>"
+				+ "</div>"
+				+ "<input type=\"submit\" id=\"post-job-btn\" value=\"Send offer\" />"
+				+ "</div>";
+//			</div><h3>Title: "+getTitle()+"</h3><p>Description: "+getDescription()+"</p><p>From: "+
+//	getEmployer().getFirstName()+" "+getEmployer().getLastName()+"</p><p>Budget: "+getBudget()+" $</p><a href='SendOffer.html'>Send Offer</a>";
 		return job;
 	}
 

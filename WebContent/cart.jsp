@@ -1,4 +1,4 @@
-<%@page import="model.Product"%>
+<%@page import="model.Job"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -22,7 +22,7 @@ if(session.getAttribute("products") == null ){%>
 			p = 1;
 		}
 	}
-	ArrayList<Product> ordered = (ArrayList<Product>) session.getAttribute("products");
+	ArrayList<Job> ordered = (ArrayList<Job>) session.getAttribute("products");
 
 	if(10*(p-1)+10 >ordered.size()){
 		p--;

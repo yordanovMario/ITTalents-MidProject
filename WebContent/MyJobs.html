@@ -2,19 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Registration Page</title>
+<title>My Jobs</title>
 		<link rel="stylesheet" href="css.css" /> 
 		<link rel="stylesheet" href="signup.css"/>
+		<link rel="stylesheet" href="post-job.css"/>
 		<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
 </head>
 <body>
 		<header>
 			<div class="flowe-header">
-				<a href="index.jsp"><div class="flowe-logo"></div></a>
+				<a href="index.jsp">
+					<div class="flowe-logo"></div>
+				</a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
 					<a href="LogIn.html">Post Job</a>	
-					<a href="LogIn.html">Browse Job Offers</a>
+					<a href="BrowseJob.html">Browse Job Offers</a>
 					<a href="LogIn.html">Login</a>
 					<div class="flowe-blue-button">
 						<p class="flowe-signup-button"><a href="SignUp.html">Sign up</a></p>
@@ -22,18 +25,35 @@
 				</div>
 			</div>
 		</header>
-		<div id="signup">
-			<h2>Sign Up</h2>
-			<form method="POST" action="signup">
-			<input type="text" name="fname" placeholder="First Name" />
-			<input type="text" name="lname" placeholder="Last Name" />
-			<input type="text" name="email" placeholder="Email" required="required"/>
-			<input type="text" name="username" placeholder="Username" required="required"/>
-			<input type="password" name="password" placeholder="Password" required="required"/>
-			<input type="password" name="password2" placeholder="Confirm password" required="required"/>
-			<input type="submit" id="submit-btn" value="Sign Up" />
-			<p>Already registred? Click <a href="LogIn.html">here</a> to log in.</p>
-			</form>
+		
+		<div class="tips">
+			<div>
+				<div class="flowe-footer-menu profile">
+					<p><a href="messages.jsp">My Messages</a></p>
+					<p><a href="jobs.jsp">My Jobs</a></p>
+					<p><a href="feedbacks.jsp">My Feedbacks</a></p>
+				</div>
+			</div>
+		</div>
+		
+		<div id="post-job">
+			<div class="search-results">
+				<div class="result-title">
+					<p>Title</p>
+					<p> fefewfefwe</p>
+				</div>
+				<div class="result-budjet">
+					<p>Budjet</p>
+					<p>fewfe </p>
+				</div>
+				<div class="result-description">
+					<p>Description</p>
+					<p>fewfww </p>
+				</div>
+				<input type="submit" id="post-job-btn" value="View offers" />
+			</div>
+			<div class="post-job-account">
+			</div>
 		</div>
 		<footer>
 			<div class="flowe-footer-menu">
@@ -45,7 +65,7 @@
 			</div>
 			<div class="flowe-footer">
 				<div class="flowe-logo-footer"> 
-					<a href="index.jsp"> 
+					<a href="index.jsp">					
 						<img src="logo.png">
 					</a>
 				</div>

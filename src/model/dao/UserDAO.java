@@ -60,7 +60,6 @@ public class UserDAO {
 				users.put(temp.getUsername(), temp);
 				emails.add(temp.getEmail());
 			}
-			this.users = users;
 		}
 		if(jobs.isEmpty()){
 			String query = "SELECT j.title, j.description, j.budget, j.category_id, u.username FROM jobs j JOIN users u ON j.user_employer_id = u.user_id";
@@ -139,18 +138,24 @@ public class UserDAO {
 		ResultSet res = st.getGeneratedKeys();
 		res.next();
 		long id = res.getLong(1);
-		System.out.println(id);
 		user.setId(id);
-		
+		user.setPassword(md5(user.getPassword()));
 		users.put(user.getUsername(), user);
-		System.out.println(user.getUsername() + " " + user.getFirstName());
 	}
 	
-	public TreeSet<Job> getAllJobs(Comparator comp){
-		System.out.println(jobs);
+	public TreeSet<Job> getAllJobs(Comparator comp, int category){
 		TreeSet<Job> temp = new TreeSet<Job>(comp);
-		for (Job j : jobs) {
-			temp.add(j);
+		if(category == 0){
+			for (Job j : jobs) {
+				temp.add(j);
+			}
+		}
+		else{
+			for (Job j : jobs) {
+				if(j.getCategory() == category){
+					temp.add(j);
+				}
+			}
 		}
 		return temp;
 	}
@@ -243,15 +248,16 @@ public class UserDAO {
 	}
 	
 	public static synchronized void updateProfile(User user) throws SQLException{
-		String query = "INSERT INTO users (first_name, last_name,) values (?, ?, ?, ?, md5(?))";
+		String query = "UPDATE users SET first_name=?, last_name=?, job_title=?, phone=?, perHourRate=?, about_me=?, portfolio=? WHERE user_id=?;";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		st.setString(1, user.getFirstName());
 		st.setString(2, user.getLastName());
 		st.setString(3, user.getJobTitle());
 		st.setString(4, user.getPhone());
 		st.setInt(5, user.getPerHourRate());
-		st.setString(5, user.getAboutMe());
-		st.setString(5, user.getPortfolio());
+		st.setString(6, user.getAboutMe());
+		st.setString(7, user.getPortfolio());
+		st.setLong(8, user.getId());
 		st.execute();
 		users.remove(user.getUsername());
 		users.put(user.getUsername(), user);

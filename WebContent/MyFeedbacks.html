@@ -1,0 +1,72 @@
+	<html>
+	<head>
+		<title>${user.getFirstName()}'s profile in FreeAgents.eu</title>
+	 	<link rel="stylesheet" href="post-job.css"/>
+	 	<link rel="stylesheet" href="css.css"/>
+		<link rel="stylesheet" type="text/css" href="signup.css">
+		<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<!-- header -->
+		<header>
+			<div class="flowe-header">
+				<div class="flowe-logo"></div>
+				<div class="flowe-header-menu"></div>
+				<div class="header-menu">
+					<a href="postjob.jsp">Post Job</a>	
+					<a href="browsejobs.jsp">Browse Job Offers</a>
+					<a href="logout">Log Out</a>
+					<div class="flowe-blue-button">
+						<p class="flowe-signup-button">${user.getFirstName()}</p>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="tips">
+			<div>
+				<div class="flowe-footer-menu profile">
+					<p><a href="messages.jsp">My Messages</a></p>
+					<p><a href="jobs.jsp">My Jobs</a></p>
+					<p><a href="feedbacks.jsp">My Feedbacks</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="message-menu">
+			<a href="NewMessage.html"><p>New feedback</p></a>
+			<a href="Inbox.html"><p>Received</p></a>
+			<a href="SentMessages.html"><p>Sent</p></a>
+		</div>
+		<div id="post-job">
+			<div class="search-results">
+				<div class="result-title">
+					<p>From</p>
+					<p> fefewfefwe</p>
+				</div>
+				<div class="result-budjet">
+					<p>Title</p>
+					<p>fewfe </p>
+				</div>
+				<div class="result-description">
+					<p>Text</p>
+					<p>fewfww </p>
+				</div>
+			</div>
+		</div>
+		<footer>
+		<div class="flowe-footer-menu">
+				<p>Terms Of Service</p>	
+				<p>Privacy Policy</p>
+				<p class="flowe-blog">Blog</p>
+				<p>Careers</p>
+				<p class="flowe-faq">FAQ</p>
+ 		</div>
+		<div class="flowe-footer">
+			<div class="flowe-logo-footer"> 
+				<img src="logo.png">
+			</div>
+			<p>&copy; 2017 Free Agents LTD. All rights reserved.</p>
+		</div>
+	</footer>
+</body>
+</html>
