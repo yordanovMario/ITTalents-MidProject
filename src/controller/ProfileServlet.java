@@ -2,8 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,28 +22,22 @@ public class ProfileServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		String username;
-		RequestDispatcher rd;
-		PrintWriter out = response.getWriter();
-		
-		if (session != null){
-			if (session.getAttribute("username") != null){
-				username = (String) session.getAttribute("username");
-				User user = UserDAO.getUser(username);
-				out.println("<h3>PROFILE</h3>");
-				out.println("User: " + user.getUsername());
-				out.println("<br>Email: " + user.getEmail());
-				out.println("<br>Name: " + user.getFirstName() + " " + user.getLastName());
-				rd = request.getRequestDispatcher("/profile.jsp");
-				rd.include(request, response);
-			}
-			else{
-				response.sendRedirect("LogIn.html");
-			}
+		boolean logged = (Boolean) request.getSession().getAttribute("logged");
+		if (session.getAttribute("logged") != null && logged){
+				User user = UserDAO.getProfile((User) session.getAttribute("username"));
+				HashMap<Integer, String> levels = UserDAO.getLevels();
+				HashMap<Integer, String> countries = UserDAO.getCountries();
+				System.out.println(countries);
+				request.setAttribute("user", user);
+				request.setAttribute("countries", countries);
+				request.setAttribute("levels", levels);
+				session.setAttribute("username", user);
+				getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 		}
-		else {
+		else{
 			response.sendRedirect("LogIn.html");
 		}
+		
 		
 	}
 

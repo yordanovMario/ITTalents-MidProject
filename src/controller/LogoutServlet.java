@@ -20,9 +20,9 @@ public class LogoutServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
 		HttpSession session=request.getSession();  
+		session.setAttribute("logged", false);
 		session.invalidate();
 		RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
-		
 		response.setHeader("Pragma", "No-cache");
 		response.setDateHeader("Expires", 0);
 		response.setHeader("Cache-Control", "no-cache");

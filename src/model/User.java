@@ -22,6 +22,7 @@ public class User {
 	private String jobTitle;
 	private String phone;
 	private String aboutMe;
+	
 	private int perHourRate; // shte go izpolzvame li?
 	private String country;
 	private String portfolio;
@@ -83,6 +84,37 @@ public class User {
 		if(!firstName.matches(NAME_PATTERN) && !lastName.isEmpty()){
 			this.lastName = lastName;
 		}
+	}
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public String getAboutMe() {
+		return aboutMe;
+	}
+
+	public int getPerHourRate() {
+		return perHourRate;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getPortfolio() {
+		return portfolio;
+	}
+
+	public File getAvatar() {
+		return avatar;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public int getLevel() {

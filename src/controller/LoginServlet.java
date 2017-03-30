@@ -12,22 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.DBManager;
+import model.User;
 import model.dao.UserDAO;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		
 		String user = req.getParameter("username");
 		String pass = req.getParameter("password");
 		String page = "LogInFailed.html";
-		
 		if(UserDAO.getInstance().validLogin(user, pass)){
-			//page = "index.html";
 			page = "index.jsp";
+			User u = UserDAO.getUser(user);
+			System.out.println(u);
 			HttpSession session=req.getSession();  
-	        session.setAttribute("username", user);
+	        session.setAttribute("user", u);
 	        session.setAttribute("logged", true);
 		}		
 		RequestDispatcher rd= req.getRequestDispatcher(page);
