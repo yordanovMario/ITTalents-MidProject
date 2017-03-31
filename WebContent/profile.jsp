@@ -42,9 +42,9 @@ if(!logged){
 		<div class="tips">
 		<div>
 			<div class="flowe-footer-menu profile">
-				<p><a href="messages.jsp">My Messages</a></p>
-				<p><a href="jobs.jsp">My Jobs</a></p>
-				<p><a href="feedbacks.jsp">My Feedbacks</a></p>
+				<p><a href="#">My Messages</a></p>
+				<p><a href="myjobs">My Jobs</a></p>
+				<p><a href="#">My Feedbacks</a></p>
  			</div>				
 			<div id="signup">
 				<form method="POST" action="editdata">

@@ -186,11 +186,6 @@ public class User {
 	public long getId() {
 		return id;
 	}
-
-	void sendOffer(Job job, String content, int price){
-		Offer offer = new Offer(this, job, content, price);
-		job.addOffer(offer);
-	}
 	
 	void sendMessage(Message m, User u){
 		this.sent.add(m);

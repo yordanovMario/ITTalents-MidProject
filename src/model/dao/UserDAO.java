@@ -20,6 +20,7 @@ import org.apache.commons.codec.binary.Hex;
 import model.User;
 import model.DBManager;
 import model.Job;
+import model.Offer;
 
 public class UserDAO {
 
@@ -62,7 +63,7 @@ public class UserDAO {
 			}
 		}
 		if(jobs.isEmpty()){
-			String query = "SELECT j.title, j.description, j.budget, j.category_id, u.username FROM jobs j JOIN users u ON j.user_employer_id = u.user_id";
+			String query = "SELECT j.job_id, j.title, j.description, j.budget, j.category_id, u.username FROM jobs j JOIN users u ON j.user_employer_id = u.user_id";
 			java.sql.PreparedStatement st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
 			ResultSet res = st.executeQuery();
 			User temp;
@@ -70,6 +71,7 @@ public class UserDAO {
 			while(res.next()){
 				temp = users.get(res.getString("username"));
 				job = new Job(temp, res.getString("title"), res.getString("description"), Integer.parseInt(res.getString("budget")), Integer.parseInt(res.getString("category_id")), 3, false);
+				job.setId(Long.parseLong(res.getString("job_id")));
 				jobs.add(job);
 			}
 		}
@@ -159,7 +161,51 @@ public class UserDAO {
 		}
 		return temp;
 	}
-
+	
+	public HashSet<Job> getMyJobs(long id){
+		HashSet<Job> temp = new HashSet<Job>();
+		for (Job j : jobs) {
+			if(j.getEmployer().getId() == id){
+				temp.add(j);
+			}
+		}
+		return temp;
+	}
+	public String getUserName(long id){
+		String query = "SELECT first_name, last_name FROM users WHERE user_id ="+id;
+		PreparedStatement ps;
+		try {
+			ps = DBManager.getInstance().getConnection().prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			String name = rs.getString(1) + " " + rs.getString(2);
+			return name;
+		}
+		catch(SQLException e){
+			System.out.println("Error getting data: " + e.getMessage());
+		}
+		return "Nobody";
+	}
+	public HashSet<Offer> getJobOffers(long id){
+		HashSet<Offer> temp = new HashSet<Offer>();
+		try {
+			String query = "SELECT * FROM offers WHERE job_id="+id;
+			java.sql.PreparedStatement st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
+			ResultSet res;
+			res = st.executeQuery();
+			while(res.next()){
+				temp.add(new Offer(res.getLong("sender_id"), res.getLong("job_id"), res.getString("content"), res.getInt("price")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return temp;
+	}
+	
 	public synchronized boolean validLogin(String username, String password) {
 		if(users.containsKey(username)){
 			String result = md5(password);
@@ -188,7 +234,6 @@ public class UserDAO {
 	public synchronized void postJob(Job job) throws SQLException{
 		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id) values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
-		System.out.println(job.getEmployer().getFirstName()+" in userdao");
 		st.setString(1, job.getTitle());
 		st.setString(2, job.getDescription());
 		st.setInt(3, job.getBudget());
@@ -196,13 +241,32 @@ public class UserDAO {
 		st.setInt(5, 1);
 		st.setLong(6, job.getEmployer().getId());
 		//st.setInt(7, 2);
-		System.out.println(job.getTitle()+" "+job.getDescription()+" "+job.getBudget()+" "+job.getCategory()+" "+job.getEmployer().getId());
 		st.execute();
 		ResultSet res = st.getGeneratedKeys();
 		res.next();
 		long id = res.getLong(1);
 		job.setId(id);
 		jobs.add(job);
+	}
+	
+	public synchronized void postOffer(Offer offer) throws SQLException{
+		System.out.println(offer.getContent());
+		System.out.println(offer.getPrice());
+		System.out.println(offer.getSender());
+		System.out.println(offer.getJob());
+		System.out.println(offer.getDate());
+		String query = "INSERT INTO offers (content, price, date, job_id, sender_id) values (?, ?, ?, ?, ?)";
+		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
+		st.setString(1, offer.getContent());
+		st.setInt(2, offer.getPrice());
+		st.setString(3, offer.getDate());
+		st.setLong(4, offer.getJob());
+		st.setLong(5, offer.getSender());
+		st.execute();
+		ResultSet res = st.getGeneratedKeys();
+		res.next();
+		long id = res.getLong(1);
+		offer.setId(id);
 	}
 	
 	public static synchronized User getUser(String username){

@@ -31,7 +31,7 @@ public class ProfileServlet extends HttpServlet {
 				request.setAttribute("user", user);
 				request.setAttribute("countries", countries);
 				request.setAttribute("levels", levels);
-				session.setAttribute("username", user);
+				session.setAttribute("user", user);
 				getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 		}
 		else{

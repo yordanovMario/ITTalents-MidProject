@@ -71,13 +71,7 @@ public class Job {
 	public int getBudget() {
 		return budget;
 	}
-	
-	public void addOffer(Offer offer){
-		this.offers.add(offer);
-		this.worker = offer.getSender();
-		this.status = 2;
-	}
-	
+		
 	public void printOffers(){
 		System.out.println("Offers for Job *" + this.title + "* :");
 		for (int i = 0; i < offers.size(); i++) {
@@ -139,10 +133,33 @@ public class Job {
 				+ "<p>User</p>"
 				+ "<p>"+getEmployer().getLastName()+"</p>"
 				+ "</div>"
+				+ "<form method=\"POST\" action=\"postoffer\">"
+				+ "<input type=\"hidden\" value=\""+getId()+"\" name=\"id\">"
 				+ "<input type=\"submit\" id=\"post-job-btn\" value=\"Send offer\" />"
+				+ "</form>"
 				+ "</div>";
-//			</div><h3>Title: "+getTitle()+"</h3><p>Description: "+getDescription()+"</p><p>From: "+
-//	getEmployer().getFirstName()+" "+getEmployer().getLastName()+"</p><p>Budget: "+getBudget()+" $</p><a href='SendOffer.html'>Send Offer</a>";
+		return job;
+	}
+	
+	public String myJob() {
+		String job = "<div class=\"search-results\">"
+				+ "<div class=\"result-title\">"
+				+ "<p>Title</p>"
+				+ "<p>"+getTitle()+"</p>"
+				+ "</div>"
+				+ "<div class=\"result-budjet\">"
+				+ "<p>Budjet</p>"
+				+ "<p>"+getBudget()+"</p>"
+				+ "</div>"
+				+ "<div class=\"result-description\">"
+				+ "<p>Description</p>"
+				+ "<p>"+getDescription()+"</p>"
+				+ "</div>"
+				+ "<form method=\"GET\" action=\"viewoffers\">"
+				+ "<input type=\"hidden\" value=\""+getId()+"\" name=\"id\">"
+				+ "<input type=\"submit\" id=\"post-job-btn\" value=\"View offers\" />"
+				+ "</form>"
+				+ "</div>";
 		return job;
 	}
 
