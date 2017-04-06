@@ -16,7 +16,6 @@ import model.User;
 import model.dao.UserDAO;
 
 
-
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
 	
@@ -37,9 +36,6 @@ public class ProfileServlet extends HttpServlet {
 		else{
 			response.sendRedirect("LogIn.html");
 		}
-		
-		
 	}
-
 
 }

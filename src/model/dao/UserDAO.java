@@ -27,16 +27,16 @@ public class UserDAO {
 	private static UserDAO instance;
 	private static HashMap<String, User> users = new HashMap<String, User>();
 	private static HashSet<String> emails = new HashSet<String>();
-	private static HashSet<Job> jobs = new HashSet<Job>();	
+	
 	private static HashMap<Integer, String> categories = new HashMap<Integer, String>();
 	private static HashMap<Integer, String> countries = new HashMap<Integer, String>();
 	private static HashMap<Integer, String> levels = new HashMap<Integer, String>();
-	private static HashMap<Integer, String> statuses = new HashMap<Integer, String>();
+	
+	
 	private UserDAO(){
 		try {
 			reloadCache();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -46,6 +46,22 @@ public class UserDAO {
 			instance = new UserDAO();
 		}
 		return instance;
+	}
+	
+	public static HashMap<Integer, String> getCategories() {
+		return categories;
+	}
+
+	public static HashMap<Integer, String> getCountries() {
+		return countries;
+	}
+
+	public static HashMap<Integer, String> getLevels() {
+		return levels;
+	}
+	
+	public static HashMap<String, User> getUsers() {
+		return users;
 	}
 	
 	private void reloadCache() throws SQLException{
@@ -60,19 +76,6 @@ public class UserDAO {
 				temp.setId(res.getLong("user_id"));
 				users.put(temp.getUsername(), temp);
 				emails.add(temp.getEmail());
-			}
-		}
-		if(jobs.isEmpty()){
-			String query = "SELECT j.job_id, j.title, j.description, j.budget, j.category_id, u.username FROM jobs j JOIN users u ON j.user_employer_id = u.user_id";
-			java.sql.PreparedStatement st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
-			ResultSet res = st.executeQuery();
-			User temp;
-			Job job;
-			while(res.next()){
-				temp = users.get(res.getString("username"));
-				job = new Job(temp, res.getString("title"), res.getString("description"), Integer.parseInt(res.getString("budget")), Integer.parseInt(res.getString("category_id")), 3, false);
-				job.setId(Long.parseLong(res.getString("job_id")));
-				jobs.add(job);
 			}
 		}
 		if(categories.isEmpty()){
@@ -99,30 +102,6 @@ public class UserDAO {
 				levels.put((Integer) res.getInt("level_id"), res.getString("name"));
 			}
 		}
-		if(statuses.isEmpty()){
-			String query = "SELECT * FROM statuses";
-			java.sql.PreparedStatement st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
-			ResultSet res = st.executeQuery();
-			while(res.next()){
-				statuses.put((Integer) res.getInt("status_id"), res.getString("name"));
-			}
-		}
-	}
-
-	public static HashMap<Integer, String> getCategories() {
-		return categories;
-	}
-
-	public static HashMap<Integer, String> getCountries() {
-		return countries;
-	}
-
-	public static HashMap<Integer, String> getLevels() {
-		return levels;
-	}
-
-	public static HashMap<Integer, String> getStatuses() {
-		return statuses;
 	}
 
 	public synchronized void registerUser(User user) throws SQLException{
@@ -145,32 +124,6 @@ public class UserDAO {
 		users.put(user.getUsername(), user);
 	}
 	
-	public TreeSet<Job> getAllJobs(Comparator comp, int category){
-		TreeSet<Job> temp = new TreeSet<Job>(comp);
-		if(category == 0){
-			for (Job j : jobs) {
-				temp.add(j);
-			}
-		}
-		else{
-			for (Job j : jobs) {
-				if(j.getCategory() == category){
-					temp.add(j);
-				}
-			}
-		}
-		return temp;
-	}
-	
-	public HashSet<Job> getMyJobs(long id){
-		HashSet<Job> temp = new HashSet<Job>();
-		for (Job j : jobs) {
-			if(j.getEmployer().getId() == id){
-				temp.add(j);
-			}
-		}
-		return temp;
-	}
 	public String getUserName(long id){
 		String query = "SELECT first_name, last_name FROM users WHERE user_id ="+id;
 		PreparedStatement ps;
@@ -188,23 +141,6 @@ public class UserDAO {
 		}
 		return "Nobody";
 	}
-	public HashSet<Offer> getJobOffers(long id){
-		HashSet<Offer> temp = new HashSet<Offer>();
-		try {
-			String query = "SELECT * FROM offers WHERE job_id="+id;
-			java.sql.PreparedStatement st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
-			ResultSet res;
-			res = st.executeQuery();
-			while(res.next()){
-				temp.add(new Offer(res.getLong("sender_id"), res.getLong("job_id"), res.getString("content"), res.getInt("price")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return temp;
-	}
 	
 	public synchronized boolean validLogin(String username, String password) {
 		if(users.containsKey(username)){
@@ -216,6 +152,7 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
 	private String md5(String pass){
 		try{
 			MessageDigest messageDigest;
@@ -231,43 +168,6 @@ public class UserDAO {
 		}
 		return pass;
 	}
-	public synchronized void postJob(Job job) throws SQLException{
-		String query = "INSERT INTO jobs (title, description, budget, category_id, status, user_employer_id) values (?, ?, ?, ?, ?, ?)";
-		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
-		st.setString(1, job.getTitle());
-		st.setString(2, job.getDescription());
-		st.setInt(3, job.getBudget());
-		st.setInt(4, job.getCategory());
-		st.setInt(5, 1);
-		st.setLong(6, job.getEmployer().getId());
-		//st.setInt(7, 2);
-		st.execute();
-		ResultSet res = st.getGeneratedKeys();
-		res.next();
-		long id = res.getLong(1);
-		job.setId(id);
-		jobs.add(job);
-	}
-	
-	public synchronized void postOffer(Offer offer) throws SQLException{
-		System.out.println(offer.getContent());
-		System.out.println(offer.getPrice());
-		System.out.println(offer.getSender());
-		System.out.println(offer.getJob());
-		System.out.println(offer.getDate());
-		String query = "INSERT INTO offers (content, price, date, job_id, sender_id) values (?, ?, ?, ?, ?)";
-		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
-		st.setString(1, offer.getContent());
-		st.setInt(2, offer.getPrice());
-		st.setString(3, offer.getDate());
-		st.setLong(4, offer.getJob());
-		st.setLong(5, offer.getSender());
-		st.execute();
-		ResultSet res = st.getGeneratedKeys();
-		res.next();
-		long id = res.getLong(1);
-		offer.setId(id);
-	}
 	
 	public static synchronized User getUser(String username){
 		User user = users.get(username);
@@ -280,6 +180,7 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
 	public static synchronized User getProfile(User user){
 		String query = "SELECT username, password, email, first_name, last_name, job_title, phone, about_me, country_id, level_id, porfolio, perHourRate FROM users WHERE username = ?";
 		PreparedStatement ps;
@@ -304,11 +205,9 @@ public class UserDAO {
 			user.setPerHourRate(perHourRate);
 			return user;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return user;
-		
 	}
 	
 	public static synchronized void updateProfile(User user) throws SQLException{
@@ -323,61 +222,9 @@ public class UserDAO {
 		st.setString(7, user.getPortfolio());
 		st.setLong(8, user.getId());
 		st.execute();
-		users.remove(user.getUsername());
-		users.put(user.getUsername(), user);
+		UserDAO.getUsers().remove(user.getUsername());
+		UserDAO.getUsers().put(user.getUsername(), user);
 	}
 	
-	public static synchronized void getMessages(User user) throws SQLException{
-		String query = "select m.date, m.title, m.content, u.first_name from messages m join users u on m.receiver_id = u.user_id";
-		PreparedStatement ps;
-		try {
-			ps = DBManager.getInstance().getConnection().prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				String date = rs.getString(1);
-				String title = rs.getString(2);
-				String content = rs.getString(3);
-				String first_name = rs.getString(4);
-			}
-		}
-		catch(SQLException e){
-			
-		}
-	}
-	
-	public static synchronized void getFeedbacks(User user){
-		String query = "select f.date, f.rating, f.content, u.first_name from feedbacks f join users u on f.receiver_id = u.user_id";
-		PreparedStatement ps;
-		try {
-			ps = DBManager.getInstance().getConnection().prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				String date = rs.getString(1);
-				String rating = rs.getString(2);
-				String content = rs.getString(3);
-				String first_name = rs.getString(4);
-			}
-		} catch (SQLException e) {
-			
-		}
-	}
-	
-//	public static synchronized ArrayList<Job> getMyJobs(User user){
-//		String query = "select j.title, c.name, j.description, j.budget from jobs j join users u on j.user_employer_id = u.user_id join categories c on j.category_id = c.category_id";
-//		PreparedStatement ps;
-//		try {
-//			ps = DBManager.getInstance().getConnection().prepareStatement(query);
-//			ResultSet rs = ps.executeQuery();
-//			
-//			String title = rs.getString(1);
-//			String name = rs.getString(2);
-//			String description = rs.getString(3);
-//			int budget = rs.getInt(4);
-//			
-//		} catch (SQLException e) {
-//			
-//		}
-//		
-//	}
 }
 

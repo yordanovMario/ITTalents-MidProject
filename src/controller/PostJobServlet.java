@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Job;
 import model.User;
+import model.dao.JobDAO;
 import model.dao.UserDAO;
 
 /**
@@ -51,7 +52,7 @@ public class PostJobServlet extends HttpServlet {
 				System.out.println(user+" in postjobservlet");
 				Job job = new Job(user, title, desc, Integer.parseInt(budget), Integer.parseInt(category), Integer.parseInt(reqExp), isSponsored);
 				try {
-					UserDAO.getInstance().postJob(job);
+					JobDAO.getInstance().postJob(job);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					System.out.println("Job posting error - " + e.getMessage());

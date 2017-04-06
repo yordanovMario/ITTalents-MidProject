@@ -40,7 +40,6 @@ public class EditDataServlet extends HttpServlet {
 			try {
 				UserDAO.updateProfile(user);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);

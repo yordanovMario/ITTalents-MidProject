@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Job;
 import model.User;
+import model.dao.JobDAO;
 import model.dao.UserDAO;
 import sorters.CompByBudgetAsc;
 import sorters.CompByBudgetDesc;
@@ -59,8 +60,7 @@ public class BrowseJobs extends HttpServlet {
 		default:
 			comp = new CompByBudgetDesc();
 		}
-		TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(comp, category);
-		//TreeSet<Job> jobs = UserDAO.getInstance().getAllJobs(new CompByBudgetAsc());
+		TreeSet<Job> jobs = JobDAO.getInstance().getAllJobs(comp, category);
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
 				User u = (User) session.getAttribute("user");

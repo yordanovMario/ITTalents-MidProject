@@ -59,10 +59,11 @@ public class SignUpServlet extends HttpServlet{
 				// TODO Auto-generated catch block
 				System.out.println("SignUp error - " + e.getMessage());
 			}
+			//Email sending code:
 			String username = "freeagentseu@gmail.com";
 		    String password = "freeagentseupass1357";
 		    String result = null;
-		 
+		    
 		    try {
 		         
 		        Properties props = System.getProperties();
@@ -100,13 +101,13 @@ public class SignUpServlet extends HttpServlet{
 		 
 		       } catch (MessagingException e) {
 		        result = "Unable to send email";
-		    }
+		       }
+		  //End of email sending code.
 		}
 
 		RequestDispatcher rq = req.getRequestDispatcher(page);
 		rq.forward(req, resp);
 
-			
 	}
 	
 }
