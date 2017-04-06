@@ -1,6 +1,4 @@
-<%@page import="java.util.HashSet"%>
 <%@page import="model.Job"%>
-<% HashSet<Job> jobs = (HashSet<Job>)request.getAttribute("jobs"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <html>
@@ -37,9 +35,27 @@
 		<div id="post-job">
 			<h2 id="search-offers">My Jobs</h2>
 			<div class="post-job search-job">
-				<%for(Job j : jobs){ %>
-					<%=j.myJob()%>
-				<%}%>
+				<c:forEach var="job" items="${jobs}">
+					<div class="search-results">
+						<div class="result-title">
+							<p>Title</p>
+							<p>${job.title}</p>
+						</div>
+						<div class="result-budjet">
+							<p>Budjet</p>
+							<p>${job.budget}</p>
+						</div>
+						<div class="result-description">
+							<p>Description</p>
+							<p>${job.description}</p>
+						</div>
+						<form method="GET" action="viewoffers">
+							<input type="hidden" value="${job.id}"name="id">
+							<input type="submit" id="post-job-btn" value="View offers" />
+						</form>
+					</div>
+				</c:forEach>
+				</div>
 			<div class="post-job-account">
 			</div>
 		</div>

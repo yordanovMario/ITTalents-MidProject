@@ -113,55 +113,5 @@ public class Job {
 	public void openDispute(){
 		this.status = 6;
 	}
-	
-	@Override
-	public String toString() {
-		String job = "<div class=\"search-results\">"
-				+ "<div class=\"result-title\">"
-				+ "<p>Title</p>"
-				+ "<p>"+getTitle()+"</p>"
-				+ "</div>"
-				+ "<div class=\"result-budjet\">"
-				+ "<p>Budjet</p>"
-				+ "<p>"+getBudget()+"</p>"
-				+ "</div>"
-				+ "<div class=\"result-description\">"
-				+ "<p>Description</p>"
-				+ "<p>"+getDescription()+"</p>"
-				+ "</div>"
-				+ "<div class=\"result-user\">"
-				+ "<p>User</p>"
-				+ "<p>"+getEmployer().getLastName()+"</p>"
-				+ "</div>"
-				+ "<form method=\"POST\" action=\"postoffer\">"
-				+ "<input type=\"hidden\" value=\""+getId()+"\" name=\"id\">"
-				+ "<input type=\"submit\" id=\"post-job-btn\" value=\"Send offer\" />"
-				+ "</form>"
-				+ "</div>";
-		return job;
-	}
-	
-	public String myJob() {
-		String job = "<div class=\"search-results\">"
-				+ "<div class=\"result-title\">"
-				+ "<p>Title</p>"
-				+ "<p>"+getTitle()+"</p>"
-				+ "</div>"
-				+ "<div class=\"result-budjet\">"
-				+ "<p>Budjet</p>"
-				+ "<p>"+getBudget()+"</p>"
-				+ "</div>"
-				+ "<div class=\"result-description\">"
-				+ "<p>Description</p>"
-				+ "<p>"+getDescription()+"</p>"
-				+ "</div>"
-				+ "<form method=\"GET\" action=\"viewoffers\">"
-				+ "<input type=\"hidden\" value=\""+getId()+"\" name=\"id\">"
-				+ "<input type=\"submit\" id=\"post-job-btn\" value=\"View offers\" />"
-				+ "</form>"
-				+ "</div>";
-		return job;
-	}
-
-	
+		
 }

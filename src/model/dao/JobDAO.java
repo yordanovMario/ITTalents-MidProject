@@ -19,7 +19,11 @@ public class JobDAO {
 	private static HashMap<Integer, String> statuses = new HashMap<Integer, String>();
 	
 	private JobDAO(){
-		
+		try {
+			reloadCache();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static synchronized JobDAO getInstance(){

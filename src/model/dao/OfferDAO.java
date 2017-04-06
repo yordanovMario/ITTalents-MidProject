@@ -13,7 +13,7 @@ public class OfferDAO {
 	private static OfferDAO instance;
 	
 	private OfferDAO(){
-		
+
 	}
 	
 	public static synchronized OfferDAO getInstance(){

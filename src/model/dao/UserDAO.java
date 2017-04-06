@@ -2,25 +2,20 @@ package model.dao;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Comparator;
+
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeSet;
+
 
 import org.apache.commons.codec.binary.Hex;
 
 import model.User;
 import model.DBManager;
-import model.Job;
-import model.Offer;
+
 
 public class UserDAO {
 
@@ -182,7 +177,7 @@ public class UserDAO {
 	}
 	
 	public static synchronized User getProfile(User user){
-		String query = "SELECT username, password, email, first_name, last_name, job_title, phone, about_me, country_id, level_id, porfolio, perHourRate FROM users WHERE username = ?";
+		String query = "SELECT username, password, email, first_name, last_name, job_title, phone, about_me, country_id, level_id, portfolio, perHourRate FROM users WHERE username = ?";
 		PreparedStatement ps;
 		try {
 			ps = DBManager.getInstance().getConnection().prepareStatement(query);

@@ -57,9 +57,9 @@ if(!logged){
 				<label for="phone">Phone number</label>
 				<input type="text" id="phone" name="phone" value="${user.getPhone()}"/><br>
 				<label for="per-hour-rate">Per hour rate ($)</label>
-				<input type="number" id="per-hour-rate" name="perhourrate" placeholder="${user.getPerHourRate()}"/>
-				<label for="about-me">About me</label>
-				<textarea rows="4" cols="50" id="about-me" name="aboutme">${user.getAboutMe()}</textarea>
+				<input type="number" id="per-hour-rate" name="perhourrate" value="${user.getPerHourRate()}"/>
+				<label for="aboutme">About me</label>
+				<textarea rows="4" cols="50" id="aboutme" name="aboutme">${user.getAboutMe()}</textarea>
 				<label for="portfolio">Portfolio</label>
 				<textarea rows="4" cols="50" id="portfolio" name="portfolio">${user.getPortfolio()}</textarea>
 				<input type="submit" id="post-job-btn" value="Edit my data" />

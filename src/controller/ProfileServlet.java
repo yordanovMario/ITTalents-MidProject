@@ -26,7 +26,6 @@ public class ProfileServlet extends HttpServlet {
 				User user = UserDAO.getProfile((User)session.getAttribute("user"));
 				HashMap<Integer, String> levels = UserDAO.getLevels();
 				HashMap<Integer, String> countries = UserDAO.getCountries();
-				System.out.println(countries);
 				request.setAttribute("user", user);
 				request.setAttribute("countries", countries);
 				request.setAttribute("levels", levels);

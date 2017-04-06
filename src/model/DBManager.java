@@ -13,7 +13,7 @@ public class DBManager {
 
 	private static DBManager instance;
 	
-	private static final String DB_IP = "localhost";
+	private static final String DB_IP = "46.238.28.76";
 	private static final String DB_PORT = "3306";
 	private static final String DB_NAME = "freeagentsdb";
 	private static final String DB_USER = "freeagents";
@@ -21,7 +21,6 @@ public class DBManager {
 	private Connection con = null;
 	private DBManager(){
 		
-		ArrayList<User> users = new ArrayList<User>();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
