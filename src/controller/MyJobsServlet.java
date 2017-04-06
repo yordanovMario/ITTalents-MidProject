@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Job;
 import model.User;
-import model.dao.UserDAO;
+import model.dao.JobDAO;
 
 /**
  * Servlet implementation class MyJobsServlet
@@ -24,7 +24,7 @@ public class MyJobsServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
 			User u = (User) session.getAttribute("user");
-			HashSet<Job> jobs = UserDAO.getInstance().getMyJobs(u.getId());
+			HashSet<Job> jobs = JobDAO.getInstance().getMyJobs(u.getId());
 			request.setAttribute("user", u);
 			request.setAttribute("jobs", jobs);
 			getServletContext().getRequestDispatcher("/myjobs.jsp").forward(request, response);

@@ -13,7 +13,8 @@ import javax.servlet.http.HttpSession;
 import model.Job;
 import model.Offer;
 import model.User;
-import model.dao.UserDAO;
+import model.dao.OfferDAO;
+
 
 /**
  * Servlet implementation class ViewOffersServlet
@@ -27,7 +28,7 @@ public class ViewOffersServlet extends HttpServlet {
 			long id = Long.parseLong(request.getParameter("id"));
 			//Job j = (Job) request.getParameter("jobid");
 			//System.out.println(j.getId());
-			HashSet<Offer> offers = UserDAO.getInstance().getJobOffers(id);
+			HashSet<Offer> offers = OfferDAO.getInstance().getJobOffers(id);
 			System.out.println(offers.isEmpty());
 			request.setAttribute("offers", offers);
 			getServletContext().getRequestDispatcher("/viewoffers.jsp").forward(request, response);

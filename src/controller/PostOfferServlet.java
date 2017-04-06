@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Offer;
 import model.User;
-import model.dao.UserDAO;
+import model.dao.OfferDAO;
 
 /**
  * Servlet implementation class PostOfferServlet
@@ -30,7 +30,7 @@ public class PostOfferServlet extends HttpServlet {
 				int price = Integer.parseInt(request.getParameter("price"));
 				Offer offer = new Offer(u.getId(), id, content, price);
 				try {
-					UserDAO.getInstance().postOffer(offer);
+					OfferDAO.getInstance().postOffer(offer);
 				} catch (SQLException e) {
 					System.out.println("Offer sending error - " + e.getMessage());
 				}
