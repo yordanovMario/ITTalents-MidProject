@@ -33,12 +33,19 @@
 						<option value="">Select Category</option>
 						<c:forEach var="category" items="${categories}">
 							<option value="${category.key}">${category.value}</option>
+							<c:if test="${user.country == country.key}">
+								<option selected="selected" value="${category.key}">${category.value}</option>
+							</c:if>
+							<c:if test="${user.country != country.key}">
+								<option value="${category.key}">${category.value}</option>
+							</c:if>
 						</c:forEach>
 					</select>
 					<select name="sort" class="categories">
-					  <option value="">Select Budjet order</option>
-					  <option value="2">Ascending</option>
-					  <option value="3">Descending</option>
+					  <option value="">Order by</option>
+					  <option value="2">Price Ascending</option>
+					  <option value="3">Price Descending</option>
+					  
 					</select>
 					
 					<input type="submit" id="post-job-btn" value="Show Results" />
@@ -61,7 +68,7 @@
 					</div>
 					<div class="result-title">
 						<p>From</p>
-						<p><a href="#">${job.employer.firstName} ${job.employer.lastName}</a></p>
+						<p><a href="viewprofile?id=${job.employer.id}">${job.employer.firstName} ${job.employer.lastName}</a></p>
 					</div>
 					<form method="POST" action="postoffer">
 						<input type="hidden" value="${job.id}"name="id">

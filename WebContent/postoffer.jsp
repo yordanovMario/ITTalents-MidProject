@@ -32,7 +32,7 @@ if (session.getAttribute("logged") != null || session.getAttribute("user") != nu
 			<div class="post-job">
 				<form method="POST" action="postoffer">
 					<textarea rows="4" cols="50" name="content" placeholder="Enter content here..."></textarea>
-					<input type="hidden" value="${id}" name="id">"
+					<input type="hidden" value="${id}" name="id">
 					<input type="number" name="price" placeholder="Price" required="required"/>
 					<input type="submit" id="post-job-btn" value="Post Offer" />
 				</form>

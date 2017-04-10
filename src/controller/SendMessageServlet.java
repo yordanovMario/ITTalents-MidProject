@@ -46,7 +46,10 @@ public class SendMessageServlet extends HttpServlet {
 				if(valid){
 					System.out.println(sender+" in sendMessageServlet");
 					Message message = new Message(sender, receiver, title, content, date);
-					MessageDAO.getInstance().sendMessage(message);
+					System.out.println(message);
+					MessageDAO.getInstance();
+					MessageDAO.sendMessage(message);
+					req.setAttribute("notification", "Message successfuly sent!");
 					getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
 				}
 			}
@@ -57,7 +60,7 @@ public class SendMessageServlet extends HttpServlet {
 				getServletContext().getRequestDispatcher("/sendmessage.jsp").forward(req, resp);
 			}
 		}
-		req.setAttribute("notification", "Message successfuly sent!");
+		
 		
 	}
 

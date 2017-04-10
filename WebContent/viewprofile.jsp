@@ -26,38 +26,29 @@
 				</div>
 			</div>
 		</header>
-		<div class="flowe-footer-menu profile">
-				<p><a href="#">My Messages</a></p>
-				<p><a href="myjobs">My Jobs</a></p>
-				<p><a href="#">My Feedbacks</a></p>
- 		</div>	
-		<div id="post-job">
-			<h2 id="search-offers">Offers for job</h2>
-			<div class="post-job search-job">
-				<c:forEach var="offer" items="${offers}">
-					<div class="search-results">
-						<div class="result-description">
-							<p>Description</p>
-							<p>${offer.content}</p>
-						</div>
-						<div class="result-budjet">
-							<p>Budjet</p>
-							<p>${offer.price}</p>
-						</div>
-						<div class="result-title">
-							<p>From</p>
-							<p><a href="viewprofile?id=${offer.senderUser.id}">${offer.senderUser.firstName} ${offer.senderUser.lastName}</a></p>
-						</div>
-						<form method="GET" action="acceptoffer">
-							<input type="hidden" value="${offer.id}" name="id"/>
-							<input type="submit" id="post-job-btn\" value="Accept offer"/>
-						</form>
-					</div>
-				</c:forEach>
-			</div>
-			<div class="post-job-account">
-			</div>
+		<div id="signup">
+				<label for="first-name">First name</label>
+				<p>${userprofile.firstName}</p>
+				<label for="last-name">Last name</label>
+				<p>${userprofile.lastName}</p>
+				<label for="last-name">Location</label>
+				<p><c:out value="${country}"/></p>
+				<label for="job-title">Job title</label>
+				<p>${userprofile.jobTitle}</p>
+				<label for="phone">Phone number</label>
+				<p>${userprofile.phone}</p>
+				<label for="per-hour-rate">Per hour rate ($)</label>
+				<p>${userprofile.perHourRate}</p>
+				<label for="aboutme">About me</label>
+				<p>${userprofile.aboutMe}</p>
+				<label for="portfolio">Portfolio</label>
+				<p>${userprofile.portfolio}</p>
 		</div>
+		<form method="POST" action="sendmessage">
+			<input type="hidden" value="${userprofile.id}" name="id">
+			<input type="submit" id="post-job-btn" value="Send Message" />
+		</form>
+		
 		<footer>
 			<div class="flowe-footer-menu">
 					<p>Terms Of Service</p>	

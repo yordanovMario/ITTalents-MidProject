@@ -51,7 +51,9 @@ public class UserDAO {
 	public static HashMap<Integer, String> getCountries() {
 		return countries;
 	}
-
+	public static String getCountry(int id){
+		return countries.get(id);
+	}
 	public static HashMap<Integer, String> getLevels() {
 		return levels;
 	}

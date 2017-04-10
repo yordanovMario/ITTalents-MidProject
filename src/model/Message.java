@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Message{
-
+	
+	private long id;
 	private String content;
 	private String title;
 	private User sender;
@@ -27,6 +28,9 @@ public class Message{
 		}
 		if(sender!=null){
 			this.receiver = receiver;
+		}
+		if(content!=null){
+			this.content = content;
 		}
 	}
 	
@@ -59,6 +63,10 @@ public class Message{
 
 	public String getDate() {
 		return date;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	

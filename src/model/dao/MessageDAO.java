@@ -24,15 +24,21 @@ public class MessageDAO {
 	}
 	
 	public static synchronized void sendMessage(Message message){
-		String query = "INSERT INTO messages (title, content, sender_id, receiver_id, date) values (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO messages (title, content, date, sender_id, receiver_id, is_read) values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement st;
 		try {
 			st = DBManager.getInstance().getConnection().prepareStatement(query);
 			st.setString(1, message.getTitle());
 			st.setString(2, message.getContent());
-			st.setLong(3, message.getSender().getId());
-			st.setLong(4, message.getReceiver().getId());
-			st.setString(5, message.getDate());
+			st.setString(3, message.getDate());
+			st.setLong(4, message.getSender().getId());
+			st.setLong(5, message.getReceiver().getId());
+			st.setInt(6, 0);
+			st.execute();
+			ResultSet res = st.getGeneratedKeys();
+			res.next();
+			long id = res.getLong(1);
+			message.setId(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

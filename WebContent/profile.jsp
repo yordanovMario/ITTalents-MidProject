@@ -43,13 +43,14 @@
 				<input type="text" id="first-name" name="firstname" value="${user.firstName}"/>
 				<label for="last-name">Last name</label>
 				<input type="text" id="last-name" name="lastname" value="${user.lastName}">
+				<label for="country">Location</label>
 				<select name="country" class="categories">
 					<option value="">Select Country</option>
 					<c:forEach var="country" items="${countries}">
-						<c:if test="${user.country == countries.key}">
+						<c:if test="${user.country == country.key}">
 							<option selected="selected" value="${country.key}">${country.value}</option>
 						</c:if>
-						<c:if test="${user.country != countries.key}">
+						<c:if test="${user.country != country.key}">
 							<option value="${country.key}">${country.value}</option>
 						</c:if>
 					</c:forEach>
