@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ import model.dao.UserDAO;
 /**
  * Servlet implementation class postJob
  */
-@WebServlet("/postJob")
+@WebServlet("/postjob")
 public class PostJobServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,24 +34,17 @@ public class PostJobServlet extends HttpServlet {
 		String budget  = req.getParameter("budget");
 		String category = req.getParameter("category");
 		String reqExp = req.getParameter("reqExp");
-		
-//		String sponsored = req.getParameter("sponsored");
+		String expire = req.getParameter("expire");
 		boolean isSponsored = false;
-//		if(sponsored != null){
-//			isSponsored = true;
-//		}
-//		else{
-//			isSponsored = false;
-//		}
 		String page = "index.jsp";
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
-			if(title.isEmpty() || desc.isEmpty() || budget.isEmpty() || category.isEmpty() || reqExp.isEmpty()){
+			if(title.isEmpty() || desc.isEmpty() || budget.isEmpty() || category.isEmpty() || reqExp.isEmpty() || expire.isEmpty()){
 				valid = false;
 			}
 			if(valid){
 				System.out.println(user+" in postjobservlet");
-				Job job = new Job(user, title, desc, Integer.parseInt(budget), Integer.parseInt(category), Integer.parseInt(reqExp), isSponsored);
+				Job job = new Job(user, title, desc, Integer.parseInt(budget), Integer.parseInt(category), Integer.parseInt(reqExp), isSponsored, Integer.parseInt(expire), null);
 				try {
 					JobDAO.getInstance().postJob(job);
 				} catch (SQLException e) {
@@ -59,11 +53,22 @@ public class PostJobServlet extends HttpServlet {
 					page = "postjob.jsp";
 				}
 			}
-			
 		}
 		rd = req.getRequestDispatcher(page);
 		rd.forward(req, resp);
 	}
-    
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		boolean logged = (Boolean) request.getSession().getAttribute("logged");
+		if (session.getAttribute("logged") != null && logged){
+			HashMap<Integer, String> categories = UserDAO.getCategories();
+			request.setAttribute("categories", categories);
+			getServletContext().getRequestDispatcher("/postjob.jsp").forward(request, response);
+		}
+		else{
+			response.sendRedirect("LogIn.html");
+		}
+	}
 
 }

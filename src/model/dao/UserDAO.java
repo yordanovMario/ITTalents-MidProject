@@ -20,8 +20,9 @@ import model.DBManager;
 public class UserDAO {
 
 	private static UserDAO instance;
-	private static HashMap<String, User> users = new HashMap<String, User>();
-	private static HashSet<String> emails = new HashSet<String>();
+	private static HashMap<String, User> usersUsername = new HashMap<String, User>();
+	private static HashMap<String, User> usersEmail = new HashMap<String, User>();
+	private static HashMap<Long, User> usersID = new HashMap<Long, User>();
 	
 	private static HashMap<Integer, String> categories = new HashMap<Integer, String>();
 	private static HashMap<Integer, String> countries = new HashMap<Integer, String>();
@@ -56,11 +57,11 @@ public class UserDAO {
 	}
 	
 	public static HashMap<String, User> getUsers() {
-		return users;
+		return usersUsername;
 	}
 	
 	private void reloadCache() throws SQLException{
-		if(users.isEmpty()){
+		if(usersUsername.isEmpty()){
 			String query = "SELECT user_id, username, password, email, first_name, last_name FROM users;";
 			java.sql.PreparedStatement st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
 			ResultSet res = st.executeQuery();
@@ -69,8 +70,9 @@ public class UserDAO {
 				temp = new User(res.getString("username"), res.getString("password"),
 						res.getString("email"),	res.getString("first_name"), res.getString("last_name"));
 				temp.setId(res.getLong("user_id"));
-				users.put(temp.getUsername(), temp);
-				emails.add(temp.getEmail());
+				usersUsername.put(temp.getUsername(), temp);
+				usersEmail.put(temp.getEmail(), temp);
+				usersID.put(res.getLong("user_id"), temp);
 			}
 		}
 		if(categories.isEmpty()){
@@ -116,31 +118,31 @@ public class UserDAO {
 		long id = res.getLong(1);
 		user.setId(id);
 		user.setPassword(md5(user.getPassword()));
-		users.put(user.getUsername(), user);
+		usersUsername.put(user.getUsername(), user);
 	}
 	
-	public String getUserName(long id){
-		String query = "SELECT first_name, last_name FROM users WHERE user_id ="+id;
+	public User getUserName(long id){
+		String query = "SELECT username FROM users WHERE user_id ="+id;
 		PreparedStatement ps;
+		User user;
 		try {
 			ps = DBManager.getInstance().getConnection().prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
+			user = getUser(rs.getString(1));
 			System.out.println(rs.getString(1));
-			System.out.println(rs.getString(2));
-			String name = rs.getString(1) + " " + rs.getString(2);
-			return name;
+			return user;
 		}
 		catch(SQLException e){
 			System.out.println("Error getting data: " + e.getMessage());
 		}
-		return "Nobody";
+		return null;
 	}
 	
 	public synchronized boolean validLogin(String username, String password) {
-		if(users.containsKey(username)){
+		if(usersUsername.containsKey(username)){
 			String result = md5(password);
-			if(users.get(username).getPassword().equals(result)){
+			if(usersUsername.get(username).getPassword().equals(result)){
 				System.out.println("Pass and username match with DB. User " + username + " logged in.");
 				return true;
 			}
@@ -165,12 +167,17 @@ public class UserDAO {
 	}
 	
 	public static synchronized User getUser(String username){
-		User user = users.get(username);
+		User user = usersUsername.get(username);
 		return user;
 	}
-
+	
+	public static synchronized User getUserID(long id){
+		User user = usersID.get(id);
+		return user;
+	}
+	
 	public synchronized boolean checkUser(String user, String email) {
-		if(users.containsKey(user) || emails.contains(email)){
+		if(usersUsername.containsKey(user) || usersEmail.containsKey(email)){
 			return true;
 		}
 		return false;
@@ -194,7 +201,7 @@ public class UserDAO {
 			user.setJobTitle(job_title);
 			user.setPhone(phone);
 			user.setAboutMe(about_me);
-			user.setCountry(country);
+			user.setCountry(country==null ? 0 : Integer.parseInt(country));
 			user.setLevel(level);
 			user.setPortfolio(portfolio);
 			user.setPerHourRate(perHourRate);
@@ -206,7 +213,7 @@ public class UserDAO {
 	}
 	
 	public static synchronized void updateProfile(User user) throws SQLException{
-		String query = "UPDATE users SET first_name=?, last_name=?, job_title=?, phone=?, perHourRate=?, about_me=?, portfolio=? WHERE user_id=?;";
+		String query = "UPDATE users SET first_name=?, last_name=?, job_title=?, phone=?, perHourRate=?, about_me=?, portfolio=?, country_id=? WHERE user_id=?;";
 		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);
 		st.setString(1, user.getFirstName());
 		st.setString(2, user.getLastName());
@@ -215,7 +222,8 @@ public class UserDAO {
 		st.setInt(5, user.getPerHourRate());
 		st.setString(6, user.getAboutMe());
 		st.setString(7, user.getPortfolio());
-		st.setLong(8, user.getId());
+		st.setInt(8, user.getCountry());
+		st.setLong(9, user.getId());
 		st.execute();
 		UserDAO.getUsers().remove(user.getUsername());
 		UserDAO.getUsers().put(user.getUsername(), user);

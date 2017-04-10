@@ -1,13 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%boolean logged = false;%>
-<%if (session != null || session.getAttribute("user") != null) {
-	logged = true;
-}
-if(!logged){
-	response.sendRedirect("LogIn.html");
-}
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -25,7 +16,7 @@ if(!logged){
 				<a href="index.jsp"><div class="flowe-logo"></div></a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<a href="postjob.jsp">Post Job</a>	
+					<a href="postjob">Post Job</a>	
 					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
@@ -49,19 +40,30 @@ if(!logged){
 			<div id="signup">
 				<form method="POST" action="editdata">
 				<label for="first-name">First name</label>
-				<input type="text" id="first-name" name="firstname" value="${user.getFirstName()}"/>
+				<input type="text" id="first-name" name="firstname" value="${user.firstName}"/>
 				<label for="last-name">Last name</label>
-				<input type="text" id="last-name" name="lastname" value="${user.getLastName()}">
+				<input type="text" id="last-name" name="lastname" value="${user.lastName}">
+				<select name="country" class="categories">
+					<option value="">Select Country</option>
+					<c:forEach var="country" items="${countries}">
+						<c:if test="${user.country == countries.key}">
+							<option selected="selected" value="${country.key}">${country.value}</option>
+						</c:if>
+						<c:if test="${user.country != countries.key}">
+							<option value="${country.key}">${country.value}</option>
+						</c:if>
+					</c:forEach>
+				</select>
 				<label for="job-title">Job title</label>
-				<input type="text" id="job-title" name="jobtitle" value="${user.getJobTitle()}"/><br>
+				<input type="text" id="job-title" name="jobtitle" value="${user.jobTitle}"/><br>
 				<label for="phone">Phone number</label>
-				<input type="text" id="phone" name="phone" value="${user.getPhone()}"/><br>
+				<input type="text" id="phone" name="phone" value="${user.phone}"/><br>
 				<label for="per-hour-rate">Per hour rate ($)</label>
-				<input type="number" id="per-hour-rate" name="perhourrate" value="${user.getPerHourRate()}"/>
+				<input type="number" id="per-hour-rate" name="perhourrate" value="${user.perHourRate}"/>
 				<label for="aboutme">About me</label>
-				<textarea rows="4" cols="50" id="aboutme" name="aboutme">${user.getAboutMe()}</textarea>
+				<textarea rows="4" cols="50" id="aboutme" name="aboutme">${user.aboutMe}</textarea>
 				<label for="portfolio">Portfolio</label>
-				<textarea rows="4" cols="50" id="portfolio" name="portfolio">${user.getPortfolio()}</textarea>
+				<textarea rows="4" cols="50" id="portfolio" name="portfolio">${user.portfolio}</textarea>
 				<input type="submit" id="post-job-btn" value="Edit my data" />
 				</form>
 			</div>

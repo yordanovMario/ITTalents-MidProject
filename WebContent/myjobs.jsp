@@ -18,11 +18,11 @@
 				</a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<a href="postjob.jsp">Post Job</a>	
+					<a href="postjob">Post Job</a>	
 					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
-						<p class="flowe-signup-button"><a href="profile.jsp"><%=session.getAttribute("name") %></a></p>
+						<p class="flowe-signup-button"><a href="profile"><%=session.getAttribute("name") %></a></p>
 					</div>
 				</div>
 			</div>

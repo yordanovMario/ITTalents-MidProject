@@ -22,7 +22,7 @@ if (session.getAttribute("logged") != null || session.getAttribute("user") != nu
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
 					<% if(logged){ %>
-					<a href="postjob.jsp">Post Job</a>	
+					<a href="postjob">Post Job</a>	
 					<a href="browsejobs">Browse All Jobs</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">

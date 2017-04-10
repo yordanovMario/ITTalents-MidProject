@@ -1,6 +1,3 @@
-<%@page import="java.util.HashSet"%>
-<%@page import="model.Offer"%>
-<% HashSet<Offer> offers = (HashSet<Offer>)request.getAttribute("offers"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <html>
@@ -20,7 +17,7 @@
 				</a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<a href="postjob.jsp">Post Job</a>	
+					<a href="postjob">Post Job</a>	
 					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
@@ -37,9 +34,27 @@
 		<div id="post-job">
 			<h2 id="search-offers">Offers for job</h2>
 			<div class="post-job search-job">
-				<%for(Offer o : offers){ %>
-					<%=o.toString()%>
-				<%}%>
+				<c:forEach var="offer" items="${offers}">
+					<div class="search-results">
+						<div class="result-description">
+							<p>Description</p>
+							<p>${offer.content}</p>
+						</div>
+						<div class="result-budjet">
+							<p>Budjet</p>
+							<p>${offer.price}</p>
+						</div>
+						<div class="result-title">
+							<p>From</p>
+							<p>${offer.senderUser.firstName} ${offer.senderUser.lastName}</p>
+						</div>
+						<form method="GET" action="acceptoffer">
+							<input type="hidden" value="${offer.id}" name="id"/>
+							<input type="submit" id="post-job-btn\" value="Accept offer"/>
+						</form>
+					</div>
+				</c:forEach>
+			</div>
 			<div class="post-job-account">
 			</div>
 		</div>

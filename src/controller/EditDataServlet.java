@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +31,7 @@ public class EditDataServlet extends HttpServlet {
 			int perhourrate = Integer.parseInt(request.getParameter("perhourrate"));
 			String aboutme = request.getParameter("aboutme");
 			String portfolio = request.getParameter("portfolio");
+			int country = Integer.parseInt(request.getParameter("country"));
 			user.setFirstName(firstname);
 			user.setLastName(lastname);
 			user.setJobTitle(jobtitle);
@@ -37,11 +39,15 @@ public class EditDataServlet extends HttpServlet {
 			user.setPerHourRate(perhourrate);
 			user.setAboutMe(aboutme);
 			user.setPortfolio(portfolio);
+			user.setCountry(country);
 			try {
 				UserDAO.updateProfile(user);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			HashMap<Integer, String> countries = UserDAO.getCountries();
+			request.setAttribute("user", user);
+			request.setAttribute("countries", countries);
 			getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
 		}
 		

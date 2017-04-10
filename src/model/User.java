@@ -23,8 +23,8 @@ public class User {
 	private String phone;
 	private String aboutMe;
 	
-	private int perHourRate; // shte go izpolzvame li?
-	private String country;
+	private int perHourRate;
+	private int country;
 	private String portfolio;
 	private File avatar;
 	private ArrayList<String> skills;
@@ -101,7 +101,7 @@ public class User {
 		return perHourRate;
 	}
 
-	public String getCountry() {
+	public int getCountry() {
 		return country;
 	}
 
@@ -160,7 +160,7 @@ public class User {
 		this.perHourRate = perHourRate;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(int country) {
 		this.country = country;
 	}
 
@@ -178,24 +178,8 @@ public class User {
 		this.skills = skills;
 	}
 
-	void postJob(String title, String description, int budget, int category, int requiredExp, boolean sponsored){
-		Job job = new Job(this, title, description, budget, category, requiredExp, sponsored);
-		this.posted.add(job);
-	}
-	
 	public long getId() {
 		return id;
 	}
-	
-	void sendMessage(Message m, User u){
-		this.sent.add(m);
-		u.received.add(m);
-	}
-	
-	void leaveFeedback(Feedback f, User u){
-		u.feedback.add(f);
-	}
-	
-	
-	
+		
 }

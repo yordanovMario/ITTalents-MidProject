@@ -28,7 +28,7 @@ public class PostOfferServlet extends HttpServlet {
 				System.out.println(id);
 				String content = (String) request.getParameter("content");
 				int price = Integer.parseInt(request.getParameter("price"));
-				Offer offer = new Offer(u.getId(), id, content, price);
+				Offer offer = new Offer(u.getId(), id, content, price, false);
 				try {
 					OfferDAO.getInstance().postOffer(offer);
 				} catch (SQLException e) {

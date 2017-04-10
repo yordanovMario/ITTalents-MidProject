@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Job {
@@ -19,10 +20,11 @@ public class Job {
 	private ArrayList<Offer> offers;
 	private Offer acceptedOffer;
 	private boolean sponsored;
-	private LocalDateTime date;
+	private String date;
+	private boolean visible;
+	private int expire;
 
-	public Job(User employer, String title, String description, int budget, int category, int requiredExp, boolean sponsored) {
-		this.date = LocalDateTime.now();
+	public Job(User employer, String title, String description, int budget, int category, int requiredExp, boolean sponsored, int expire, String date) {
 		if(employer!=null){
 			this.employer = employer;
 		}
@@ -41,14 +43,104 @@ public class Job {
 		this.sponsored = sponsored;
 		this.requiredExp = requiredExp;
 		this.status = 1;
+		this.expire = expire;
 		this.offers = new ArrayList<Offer>();
+		LocalDateTime dateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		if(date == null){
+			this.date = dateTime.format(formatter);
+		}
+		this.visible = true;
+	}
+	public User getWorker() {
+		return worker;
+	}
+
+	public void setWorker(User worker) {
+		this.worker = worker;
+	}
+
+	public ArrayList<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(ArrayList<File> files) {
+		this.files = files;
+	}
+
+	public int getRequiredExp() {
+		return requiredExp;
+	}
+
+	public void setRequiredExp(int requiredExp) {
+		this.requiredExp = requiredExp;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public ArrayList<Offer> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(ArrayList<Offer> offers) {
+		this.offers = offers;
+	}
+
+	public Offer getAcceptedOffer() {
+		return acceptedOffer;
+	}
+
+	public void setAcceptedOffer(Offer acceptedOffer) {
+		this.acceptedOffer = acceptedOffer;
+	}
+
+	public void setEmployer(User employer) {
+		this.employer = employer;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setBudget(int budget) {
+		this.budget = budget;
+	}
+
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public void setExpire(int expire) {
+		this.expire = expire;
+	}
+
+	public boolean isVisible() {
+		return visible;
 	}
 	
-	public LocalDateTime getDate() {
+	public int getExpire() {
+		return expire;
+	}
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -113,5 +205,6 @@ public class Job {
 	public void openDispute(){
 		this.status = 6;
 	}
-		
+	
+	
 }

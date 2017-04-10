@@ -26,7 +26,7 @@ import sorters.CompBySponsored;
  * Servlet implementation class BrowseJobs
  */
 @WebServlet("/browsejobs")
-public class BrowseJobs extends HttpServlet {
+public class BrowseJobsServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int sorter;
@@ -66,7 +66,8 @@ public class BrowseJobs extends HttpServlet {
 				User u = (User) session.getAttribute("user");
 				request.setAttribute("user", u);
 				request.setAttribute("jobs", jobs);
-				
+				HashMap<Integer, String> categories = UserDAO.getCategories();
+				request.setAttribute("categories", categories);
 				getServletContext().getRequestDispatcher("/browsejobs.jsp").forward(request, response);
 		}
 		else{	

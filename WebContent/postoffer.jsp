@@ -18,7 +18,7 @@ if (session.getAttribute("logged") != null || session.getAttribute("user") != nu
 				<a href="index.jsp"><div class="flowe-logo"></div></a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<a href="postjob.jsp">Post Job</a>
+					<a href="postjob">Post Job</a>
 					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">

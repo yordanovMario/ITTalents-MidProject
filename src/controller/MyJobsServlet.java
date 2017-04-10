@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ public class MyJobsServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
 			User u = (User) session.getAttribute("user");
-			HashSet<Job> jobs = JobDAO.getInstance().getMyJobs(u.getId());
+			ArrayList<Job> jobs = JobDAO.getInstance().getMyJobs(u.getId());
 			request.setAttribute("user", u);
 			request.setAttribute("jobs", jobs);
 			getServletContext().getRequestDispatcher("/myjobs.jsp").forward(request, response);

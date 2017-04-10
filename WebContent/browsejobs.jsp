@@ -1,8 +1,4 @@
-<%@page import="java.util.TreeSet"%>
-<%@page import="model.Job"%>
-<% TreeSet<Job> jobs = (TreeSet<Job>)request.getAttribute("jobs"); %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -20,11 +16,11 @@
 				</a>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<a href="postjob.jsp">Post Job</a>	
+					<a href="postjob">Post Job</a>	
 					<a href="#">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
-						<p class="flowe-signup-button"><a href="profile.jsp"><%=session.getAttribute("name") %></a></p>
+						<p class="flowe-signup-button"><a href="profile">${user.firstName}</a></p>
 					</div>
 				</div>
 			</div>
@@ -33,25 +29,11 @@
 			<h2 id="search-offers">Search offers</h2>
 			<div class="post-job search-job">
 				<form method="GET" action="browsejobs">
-					<!-- select categories from database -->
 					<select name="category" class="categories">
-					  <option value="">Select Category</option>
-					  <option value="1">Sales and Marketing</option>
-					  <option value="2">Web development</option>
-					  <option value="3">Moblie soft development</option>
-					  <option value="4">Social Media</option>
-					  <option value="5">Business Support</option>
-					  <option value="6">Copy writting</option>
-					  <option value="7">Translation</option>
-					  <option value="8">Video making/editing</option>
-					  <option value="9">Photo retouch</option>
-					  <option value="10">Audio redacting</option>
-					  <option value="11">Web design</option>
-					  <option value="12">Logo design</option>
-					  <option value="13">Banner design</option>
-					  <option value="14">SEO</option>
-					  <option value="15">Tutorials</option>
-					  <option value="16">Administration</option>
+						<option value="">Select Category</option>
+						<c:forEach var="category" items="${categories}">
+							<option value="${category.key}">${category.value}</option>
+						</c:forEach>
 					</select>
 					<select name="sort" class="categories">
 					  <option value="">Select Budjet order</option>
@@ -62,10 +44,32 @@
 					<input type="submit" id="post-job-btn" value="Show Results" />
 				</form>
 			</div>
-
-				<%for(Job j : jobs){ %>
-					<%=j.toString()%>
-				<%}%>
+			
+			<c:forEach var="job" items="${jobs}">
+				<div class="search-results">
+					<div class="result-title">
+						<p>Title</p>
+						<p>${job.title}</p>
+					</div>
+					<div class="result-budjet">
+						<p>Budjet</p>
+						<p>${job.budget}</p>
+					</div>
+					<div class="result-description">
+						<p>Description</p>
+						<p>${job.description}</p>
+					</div>
+					<div class="result-title">
+						<p>From</p>
+						<p><a href="#">${job.employer.firstName} ${job.employer.lastName}</a></p>
+					</div>
+					<form method="POST" action="postoffer">
+						<input type="hidden" value="${job.id}"name="id">
+						<input type="submit" id="post-job-btn" value="Send Offer" />
+					</form>
+				</div>
+			</c:forEach>
+	
 			<div class="post-job-account">
 			</div>
 		</div>
