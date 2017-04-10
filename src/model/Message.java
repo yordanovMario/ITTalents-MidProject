@@ -13,13 +13,15 @@ public class Message{
 	private String date;
 	
 
-	public Message(User sender, User receiver, String title, String content) {
+	public Message(User sender, User receiver, String title, String content, String date) {
 		if(title!=null && !title.isEmpty()){
 			this.title = title;
 		}
-		LocalDateTime dateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		this.date = dateTime.format(formatter); 
+		if(this.date == null){
+			LocalDateTime dateTime = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+			this.date = dateTime.format(formatter);
+		}
 		if(sender!=null){
 			this.sender = sender;
 		}
