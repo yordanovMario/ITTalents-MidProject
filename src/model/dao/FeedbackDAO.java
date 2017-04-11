@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.DBManager;
+import model.Feedback;
 import model.User;
 
 public class FeedbackDAO {
@@ -20,6 +21,10 @@ public class FeedbackDAO {
 			instance = new FeedbackDAO();
 		}
 		return instance;
+	}
+	
+	public static synchronized void sendFeedback(Feedback feedback){
+		
 	}
 	
 	public static synchronized void getFeedbacks(User user){

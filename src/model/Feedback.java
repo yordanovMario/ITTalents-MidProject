@@ -12,7 +12,7 @@ public class Feedback {
 	private String date;
 	private int rating;
 	
-	public Feedback(User sender, User receiver, String content, int rating) {
+	public Feedback(User sender, User receiver, String content, int rating, String date) {
 		if(content!=null && !content.isEmpty()){
 			this.content = content;
 		}
@@ -22,10 +22,14 @@ public class Feedback {
 		if(sender!=null){
 			this.receiver = receiver;
 		}
-		LocalDateTime dateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		this.date = dateTime.format(formatter);
-		this.rating = rating;
+		if(this.date == null){
+			LocalDateTime dateTime = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+			this.date = dateTime.format(formatter);
+		}
+		if(rating >=1 && rating <= 5){
+			this.rating = rating;
+		}
 	}
 	
 	public String getContent() {
