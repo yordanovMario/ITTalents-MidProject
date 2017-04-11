@@ -42,6 +42,7 @@ public class BrowseJobsServlet extends HttpServlet {
 		}
 		else{
 			category = Integer.parseInt(request.getParameter("category"));
+			request.setAttribute("categoryID", Integer.parseInt(request.getParameter("category")));
 		} 
 		Comparator comp;
 		switch (sorter) {
@@ -54,7 +55,6 @@ public class BrowseJobsServlet extends HttpServlet {
 		case 3:
 			comp = new CompByBudgetDesc();
 			break;
-			
 		case 4:
 			comp = new CompBySponsored();
 		default:
@@ -68,6 +68,7 @@ public class BrowseJobsServlet extends HttpServlet {
 				request.setAttribute("jobs", jobs);
 				HashMap<Integer, String> categories = UserDAO.getCategories();
 				request.setAttribute("categories", categories);
+				//request.setAttribute("sortID", Integer.parseInt(request.getParameter("sort")));
 				getServletContext().getRequestDispatcher("/browsejobs.jsp").forward(request, response);
 		}
 		else{	

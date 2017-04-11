@@ -1,11 +1,10 @@
 <%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="logged" value="false"/>
-<c:if test="${not empty sessionScope['logged'] || not empty sessionScope['user']}">
-<c:set var="logged" value="true"/>
-</c:if>
+<% boolean logged = false;
+if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
+	logged = true;
+}%>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -22,20 +21,19 @@
 				<div class="flowe-logo"></div>
 				<div class="flowe-header-menu"></div>
 				<div class="header-menu">
-					<c:if test="${logged eq true}">
+					<% if(logged){ %>
 					<a href="postjob">Post Job</a>	
 					<a href="browsejobs">Browse All Jobs</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
-					<p class="flowe-signup-button"><a href="profile">${sessionScope['name']}</a></p>
-					</c:if>
-					<c:if test="${logged eq false}">
+					<p class="flowe-signup-button"><a href="profile"><%=session.getAttribute("name") %></a></p>
+					<%} else { %>
 					<a href="LogIn.html">Post Job</a>	
 					<a href="LogIn.html">Browse All Jobs</a>
 					<a href="LogIn.html">Log In</a>
 					<div class="flowe-blue-button">
 					<p class="flowe-signup-button"><a href="SignUp.html">Sign Up</a></p>
-					</c:if>
+					<% } %>
 					
 					</div>
 				</div>

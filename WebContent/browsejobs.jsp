@@ -32,11 +32,10 @@
 					<select name="category" class="categories">
 						<option value="">Select Category</option>
 						<c:forEach var="category" items="${categories}">
-							<option value="${category.key}">${category.value}</option>
-							<c:if test="${user.country == country.key}">
+							<c:if test="${category.key == categoryID}">
 								<option selected="selected" value="${category.key}">${category.value}</option>
 							</c:if>
-							<c:if test="${user.country != country.key}">
+							<c:if test="${category.key != categoryID}">
 								<option value="${category.key}">${category.value}</option>
 							</c:if>
 						</c:forEach>

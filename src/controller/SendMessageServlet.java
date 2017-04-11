@@ -34,7 +34,6 @@ public class SendMessageServlet extends HttpServlet {
 		String content = req.getParameter("content");
 		String date = req.getParameter("date");
 		
-		String page = "index.jsp";
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
 			if(req.getParameter("title") != null && req.getParameter("content") != null){
 				long id = Long.parseLong(req.getParameter("id"));
@@ -44,9 +43,7 @@ public class SendMessageServlet extends HttpServlet {
 					valid = false;
 				}
 				if(valid){
-					System.out.println(sender+" in sendMessageServlet");
 					Message message = new Message(sender, receiver, title, content, date);
-					System.out.println(message);
 					MessageDAO.getInstance();
 					MessageDAO.sendMessage(message);
 					req.setAttribute("notification", "Message successfuly sent!");
