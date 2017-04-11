@@ -24,7 +24,24 @@ public class FeedbackDAO {
 	}
 	
 	public static synchronized void sendFeedback(Feedback feedback){
-		
+		String query = "INSERT INTO feedbacks (content, rating, date, sender_id, receiver_id, is_read) values (?, ?, ?, ?, ?, ?)";
+		PreparedStatement st;
+		try {
+			st = DBManager.getInstance().getConnection().prepareStatement(query);
+			st.setString(1, feedback.getContent());
+			st.setInt(2, feedback.getRating());
+			st.setString(3, feedback.getDate());
+			st.setLong(4, feedback.getSender().getId());
+			st.setLong(5, feedback.getReceiver().getId());
+			st.setInt(6, 0);
+			st.execute();
+			ResultSet res = st.getGeneratedKeys();
+			res.next();
+			long id = res.getLong(1);
+			feedback.setId(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static synchronized void getFeedbacks(User user){

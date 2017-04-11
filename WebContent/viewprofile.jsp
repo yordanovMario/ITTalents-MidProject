@@ -49,6 +49,11 @@
 			<input type="submit" id="post-job-btn" value="Send Message" />
 		</form>
 		
+		<form method="POST" action="sendfeedback">
+			<input type="hidden" value="${userprofile.id}" name="id">
+			<input type="submit" id="post-job-btn" value="Send Feedback" />
+		</form>
+		
 		<footer>
 			<div class="flowe-footer-menu">
 					<p>Terms Of Service</p>	

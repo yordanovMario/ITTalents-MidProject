@@ -15,9 +15,6 @@ import model.User;
 import model.dao.FeedbackDAO;
 import model.dao.UserDAO;
 
-/**
- * Servlet implementation class SendFeedbackServlet
- */
 @WebServlet("/sendfeedback")
 public class SendFeedbackServlet extends HttpServlet {
 

@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Feedback {
 	
+	private long id;
 	private String content;
 	private User sender;
 	private User receiver;
@@ -46,6 +47,18 @@ public class Feedback {
 	
 	public User getSender() {
 		return sender;
+	}
+	
+	public int getRating() {
+		return rating;
+	}
+	
+	public User getReceiver() {
+		return receiver;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	@Override
