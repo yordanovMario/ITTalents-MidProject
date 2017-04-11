@@ -31,6 +31,10 @@ public class Offer {
 		this.isRead = false;
 	}
 	
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -46,6 +46,7 @@ public class OfferDAO {
 				offer = new Offer(res.getLong("sender_id"), res.getLong("job_id"), res.getString("content"), Integer.parseInt(res.getString("price")), false);
 				long jobID = Long.parseLong(res.getString("job_id"));
 				offer.setId(jobID);
+				offer.setDate(res.getString("date"));
 				offersID.put(offer.getId(), offer);
 				if(offers.containsKey(jobID)){
 					offers.get(jobID).add(offer);

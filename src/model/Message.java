@@ -12,16 +12,19 @@ public class Message{
 	private User sender;
 	private User receiver;
 	private String date;
-	
+	private boolean isRead;
 
 	public Message(User sender, User receiver, String title, String content, String date) {
 		if(title!=null && !title.isEmpty()){
 			this.title = title;
 		}
-		if(this.date == null){
+		if(date == null){
 			LocalDateTime dateTime = LocalDateTime.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 			this.date = dateTime.format(formatter);
+		}
+		else{
+			this.date = date;
 		}
 		if(sender!=null){
 			this.sender = sender;
@@ -32,21 +35,19 @@ public class Message{
 		if(content!=null){
 			this.content = content;
 		}
+		isRead = false;
 	}
 	
 	public String getTitle() {
 		return title;
 	}
+	
+	public long getId() {
+		return id;
+	}
 
-	@Override
-	public String toString() {
-		System.out.println("============================================");
-		System.out.println("Message from " + getSender().getFirstName() + " " + getSender().getLastName());
-		System.out.println("Date: " + getDate());
-		System.out.println(getTitle());
-		System.out.println(getContent());
-		System.out.println("============================================");
-		return "";
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
 	}
 
 	public String getContent() {

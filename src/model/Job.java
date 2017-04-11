@@ -50,6 +50,9 @@ public class Job {
 		if(date == null){
 			this.date = dateTime.format(formatter);
 		}
+		else{
+			this.date = date;
+		}
 		this.visible = true;
 	}
 	public User getWorker() {

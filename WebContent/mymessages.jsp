@@ -22,7 +22,7 @@
 					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
-						<p class="flowe-signup-button"><a href="profile"><%=session.getAttribute("name") %></a></p>
+						<p class="flowe-signup-button"><a href="profile">${sessionScope['name']}</a></p>
 					</div>
 				</div>
 			</div>
@@ -33,12 +33,17 @@
 				<p><a href="#">My Feedbacks</a></p>
  			</div>	
 		<div id="post-job">
-			<h2 id="search-offers">My Jobs</h2>
+			<h2 id="search-offers">My Messages</h2>
 			<div class="post-job search-job">
-				<table>
+				<table style="border: 1px solid black;">
+					  <tr>
+					    <th>Sender name</th>
+					    <th>Title</th> 
+					    <th>Date & Time</th>
+					  </tr>
 					<c:forEach var="message" items="${messages}">
 						<tr>
-						<td>${message.sender.firstName}</td>
+						<td>${message.sender.firstName} ${message.sender.lastName}</td>
 						<td>${message.title}</td>
 						<td>${message.date}</td>
 						</tr>

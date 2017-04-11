@@ -33,9 +33,9 @@
 		<div class="tips">
 		<div>
 			<div class="flowe-footer-menu profile">
-				<p><a href="#">My Messages</a></p>
+				<p><a href="mymessages">My Messages</a></p>
 				<p><a href="myjobs">My Jobs</a></p>
-				<p><a href="#">My Feedbacks</a></p>
+				<p><a href="myfeedbacks?id=${user.id}">My Feedbacks</a></p>
  			</div>				
 			<div id="signup">
 				<form method="POST" action="editdata">
