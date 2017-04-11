@@ -61,6 +61,10 @@ public class Feedback {
 		this.id = id;
 	}
 	
+	public long getId() {
+		return id;
+	}
+	
 	@Override
 	public String toString() {
 		System.out.println("============================================");

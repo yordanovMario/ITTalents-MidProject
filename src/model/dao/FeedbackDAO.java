@@ -3,15 +3,22 @@ package model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.DBManager;
 import model.Feedback;
+import model.Message;
 import model.User;
 
 public class FeedbackDAO {
 
 	private static FeedbackDAO instance;
-	
+	//Hashmap with all received feedbacks with key - user id
+	private static HashMap<Long, ArrayList<Feedback>> receivedUser = new HashMap<Long, ArrayList<Feedback>>();
+	//Hashmap with all feedbacks with key - feedback id
+	private static HashMap<Long, Feedback> feedbacks = new HashMap<Long, Feedback>();
+		
 	private FeedbackDAO(){
 		
 	}
@@ -24,6 +31,12 @@ public class FeedbackDAO {
 	}
 	
 	public static synchronized void sendFeedback(Feedback feedback){
+		feedbacks.put(feedback.getId(), feedback);
+		if(!receivedUser.containsKey(feedback.getReceiver().getId())){
+			receivedUser.put(feedback.getReceiver().getId(), new ArrayList<Feedback>());
+		}
+		receivedUser.get(feedback.getReceiver().getId()).add(feedback);
+		
 		String query = "INSERT INTO feedbacks (content, rating, date, sender_id, receiver_id, is_read) values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement st;
 		try {
@@ -59,6 +72,10 @@ public class FeedbackDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static synchronized ArrayList<Feedback> getReceived(long id){
+		return receivedUser.get(id);
 	}
 	
 }
