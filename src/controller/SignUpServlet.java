@@ -56,53 +56,20 @@ public class SignUpServlet extends HttpServlet{
 				System.out.println(u);
 				UserDAO.getInstance().registerUser(u);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				System.out.println("SignUp error - " + e.getMessage());
 			}
 			//Email sending code:
-			String username = "freeagentseu@gmail.com";
-		    String password = "freeagentseupass1357";
-		    String result = null;
-		    
-		    try {
-		         
-		        Properties props = System.getProperties();
-		        props.setProperty("mail.transport.protocol", "smtp");
-		        props.setProperty("mail.host", "smtp.gmail.com");
-		        props.put("mail.smtp.auth", "true");
-		        props.put("mail.smtp.port", "465");
-		        props.put("mail.debug", "true");
-		        props.put("mail.smtp.socketFactory.port", "465");
-		        props.put("mail.smtp.socketFactory.class",
-		                "javax.net.ssl.SSLSocketFactory");
-		        props.put("mail.smtp.socketFactory.fallback", "false");
-		 
-		        Session emailSession = Session.getInstance(props,
-		                new javax.mail.Authenticator() {
-		                    protected PasswordAuthentication getPasswordAuthentication() {
-		                    return new PasswordAuthentication("freeagentseu@gmail.com","freeagentseupass1357");
-		                }
-		        });
-		 
-		        emailSession.setDebug(true);
-		        Message message = new MimeMessage(emailSession);
-		        message.setFrom(new InternetAddress(
-		                "freeagentseu@gmail.com"));
-		        message.setRecipients(Message.RecipientType.TO,
-		                InternetAddress.parse("yordanov.mario@gmail.com"));
-		        message.setSubject("Welcome to freeagents.eu!");
-		        message.setText("Welcome to our website! You can now log in");
-		 
-		        Transport transport = emailSession.getTransport("smtps");
-		        transport.connect("smtp.gmail.com", username, password);
-		        transport.sendMessage(message, message.getAllRecipients());
-		 
-		        result = "Successfully sent email";
-		 
-		       } catch (MessagingException e) {
-		        result = "Unable to send email";
-		       }
-		  //End of email sending code.
+			new MailSender(email, "Welcome to FreeAgents!", 
+					"Hi, " + fname + "!" + System.lineSeparator() + System.lineSeparator() +
+					"Welcome to FreeAgents! Thanks so much for joining us." + System.lineSeparator() +
+					System.lineSeparator() +
+					"You are now part of our community of curated freelance talent " + System.lineSeparator() +
+					"available to work for you remotely at the click of a button." + System.lineSeparator() + 
+					"Have any questions? Just shoot us an email! We’re always here to help." + System.lineSeparator() + 
+					System.lineSeparator() +
+					"Cheerfully yours," + System.lineSeparator() +
+					"The Freeagents Team"
+					);
 		}
 
 		RequestDispatcher rq = req.getRequestDispatcher(page);
