@@ -24,7 +24,8 @@ public class MyMessagesServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
 			User u = (User) session.getAttribute("user");
-			ArrayList<Message> received = MessageDAO.getInstance().getReceived(u.getId());
+			MessageDAO.getInstance();
+			ArrayList<Message> received = MessageDAO.getReceived(u.getId());
 			request.setAttribute("user", u);
 			request.setAttribute("messages", received);
 			getServletContext().getRequestDispatcher("/mymessages.jsp").forward(request, response);

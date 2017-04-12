@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ReadMessageServlet
+ * Servlet implementation class ViewFeedbackServlet
  */
-@WebServlet("/readmessage")
-public class ReadMessageServlet extends HttpServlet {
-
+@WebServlet("/ViewFeedbackServlet")
+public class ViewFeedbackServlet extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {

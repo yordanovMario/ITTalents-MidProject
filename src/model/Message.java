@@ -35,7 +35,7 @@ public class Message{
 		if(content!=null){
 			this.content = content;
 		}
-		isRead = false;
+		this.isRead = false;
 	}
 	
 	public String getTitle() {
