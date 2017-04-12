@@ -30,6 +30,37 @@ public class FeedbackDAO {
 		return instance;
 	}
 	
+	private void reloadCache(){
+		if(receivedUser.isEmpty() ){
+			String query = "SELECT feedback_id, content, rating, date, sender_id, receiver_id, is_read FROM feedbacks";
+			java.sql.PreparedStatement st;
+			try {
+				st = DBManager.getInstance().getConnection().clientPrepareStatement(query);
+				ResultSet res = st.executeQuery();
+				Feedback feedback;
+				long sender;
+				long receiver;
+				while(res.next()){
+					sender = res.getLong("sender_id");
+					receiver = res.getLong("receiver_id");
+					feedback = new Feedback(UserDAO.getUserID(sender), UserDAO.getUserID(receiver), 
+									res.getString("content"), Integer.parseInt(res.getString("rating")), res.getString("date"));
+					feedback.setId(Long.parseLong(res.getString("feedback_id")));
+					feedback.setSeen(Integer.parseInt(res.getString("is_read")) == 0 ? false : true);
+					feedbacks.put(feedback.getId(), feedback);
+					if(!receivedUser.containsKey(receiver)){
+						receivedUser.put(receiver, new ArrayList<Feedback>());
+					}
+					receivedUser.get(receiver).add(feedback);
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage() + " SQL Exception in relaodCache()");
+				e.printStackTrace();
+			}
+			System.out.println("Feedback cache collections reloaded");
+		}
+	}
+	
 	public static synchronized void sendFeedback(Feedback feedback){
 		feedbacks.put(feedback.getId(), feedback);
 		if(!receivedUser.containsKey(feedback.getReceiver().getId())){
@@ -78,4 +109,17 @@ public class FeedbackDAO {
 		return receivedUser.get(id);
 	}
 	
+	public static synchronized void readMessage(long feedbackID){
+		feedbacks.get(feedbackID).setSeen(true);
+		
+		String query = "UPDATE feedbacks SET is_read 1 WHERE feedback_id = ?";
+		PreparedStatement st;
+		try {
+			st = DBManager.getInstance().getConnection().prepareStatement(query);
+			st.setLong(1, feedbackID);
+			st.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

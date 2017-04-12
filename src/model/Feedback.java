@@ -12,6 +12,7 @@ public class Feedback {
 	private User receiver;
 	private String date;
 	private int rating;
+	private boolean isSeen;
 	
 	public Feedback(User sender, User receiver, String content, int rating, String date) {
 		if(content!=null && !content.isEmpty()){
@@ -31,6 +32,7 @@ public class Feedback {
 		if(rating >=1 && rating <= 5){
 			this.rating = rating;
 		}
+		this.isSeen = false;
 	}
 	
 	public String getContent() {
@@ -63,6 +65,10 @@ public class Feedback {
 	
 	public long getId() {
 		return id;
+	}
+	
+	public void setSeen(boolean isSeen) {
+		this.isSeen = isSeen;
 	}
 	
 	@Override
