@@ -43,7 +43,7 @@
 					  </tr>
 					<c:forEach var="message" items="${messages}">
 						<tr>
-						<td>${message.sender.firstName} ${message.sender.lastName}</td>
+						<td>${message.sender.firstName}&nbsp${message.sender.lastName}</td>
 						<td>${message.title}</td>
 						<td>${message.date}</td>
 						</tr>
