@@ -33,19 +33,21 @@
 				<p><a href="myfeedbacks">My Feedbacks</a></p>
  			</div>	
 		<div id="post-job">
-			<h2 id="search-offers">My Messages</h2>
+			<h2 id="search-offers">My Feedbacks</h2>
 			<div class="post-job search-job">
 				<table style="border: 1px solid black;">
 					  <tr>
 					    <th>Sender name</th>
-					    <th>Title</th> 
+					    <th>Rating</th>
+					    <th>Content</th>  
 					    <th>Date & Time</th>
 					  </tr>
-					<c:forEach var="message" items="${messages}">
+					<c:forEach var="feedback" items="${feedbacks}">
 						<tr>
-						<td>${message.sender.firstName} ${message.sender.lastName}</td>
-						<td>${message.title}</td>
-						<td>${message.date}</td>
+						<td>${feedback.sender.firstName} ${feedback.sender.lastName}</td>
+						<td>${feedback.rating}</td>
+						<td>${feedback.content}</td>
+						<td>${feedback.date}</td>
 						</tr>
 					</c:forEach>
 				</table>
