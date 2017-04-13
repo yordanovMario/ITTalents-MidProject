@@ -23,7 +23,9 @@ public class Offer {
 		if(content!=null && !content.isEmpty()){
 			this.content = content;
 		}
-		this.price = price;
+		if(price > 0){
+			this.price = price;
+		}
 		this.isRead = isRead;
 		LocalDateTime dateTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

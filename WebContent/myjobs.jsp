@@ -22,15 +22,15 @@
 					<a href="browsejobs">Browse Job Offers</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
-						<p class="flowe-signup-button"><a href="profile"><%=session.getAttribute("name") %></a></p>
+						<p class="flowe-signup-button"><a href="profile">${sessionScope['name']}</a></p>
 					</div>
 				</div>
 			</div>
 		</header>
 		<div class="flowe-footer-menu profile">
-				<p><a href="#">My Messages</a></p>
+				<p><a href="mymessages">My Messages</a></p>
 				<p><a href="myjobs">My Jobs</a></p>
-				<p><a href="#">My Feedbacks</a></p>
+				<p><a href="myfeedbacks?id=${user.id}">My Feedbacks</a></p>
  			</div>	
 		<div id="post-job">
 			<h2 id="search-offers">My Jobs</h2>
