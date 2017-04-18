@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%boolean logged = false;
-if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
-	logged = true;
-}%>
 <html>
 	<head>
 		<meta charset="UTF-8">

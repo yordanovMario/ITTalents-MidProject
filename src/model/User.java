@@ -32,12 +32,6 @@ public class User {
 	private ArrayList<Job> posted;
 	private ArrayList<Job> worked;
 	
-	private ArrayList<Message> sent;
-	private ArrayList<Message> received;
-	
-	private ArrayList<Feedback> feedback;
-	
-	//Statistics:
 	private double rating;
 
 	public User(String username, String password, String email, String firstName, String lastName) {

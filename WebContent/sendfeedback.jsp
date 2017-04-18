@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%boolean logged = false;
-if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
-	logged = true;
-}%>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -31,9 +27,16 @@ if (session.getAttribute("logged") != null || session.getAttribute("user") != nu
 			<h2>Send Feedback</h2>
 			<div class="post-job">
 				<form method="POST" action="sendfeedback">
-					<input type="number" name="rating" placeholder="Rating" required="required"/>
+					<select name="rating" class="categories">
+						<option value="3">Rating</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 					<textarea rows="4" cols="50" name="content" placeholder="Enter your comment here..."></textarea>
-					<input type="hidden" value="${id}" name="id">"
+					<input type="hidden" value="${id}" name="id">
 					<input type="submit" id="post-job-btn" value="Send Feedback" />
 				</form>
 			</div>

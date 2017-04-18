@@ -20,16 +20,14 @@ public class SendFeedbackServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		RequestDispatcher rd;
 		
 		boolean valid = true;
 		
-		String content = req.getParameter("content");
-		int rating = Integer.parseInt(req.getParameter("rating"));
-		String date = req.getParameter("date");
-		
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
 			if(req.getParameter("content") != null && req.getParameter("rating") != null){
+				String content = req.getParameter("content");
+				int rating = Integer.parseInt(req.getParameter("rating"));
+				String date = req.getParameter("date");
 				long id = Long.parseLong(req.getParameter("id"));
 				User receiver = UserDAO.getUserID(id);
 				User sender = (User) session.getAttribute("user");

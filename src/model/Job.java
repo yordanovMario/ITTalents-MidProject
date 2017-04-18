@@ -23,6 +23,8 @@ public class Job {
 	private String date;
 	private boolean visible;
 	private int expire;
+	private boolean feedbackLeftEmployer = false;
+	private boolean feedbackLeftWorker = false;
 
 	public Job(User employer, String title, String description, int budget, int category, int requiredExp, boolean sponsored, int expire, String date) {
 		if(employer!=null){

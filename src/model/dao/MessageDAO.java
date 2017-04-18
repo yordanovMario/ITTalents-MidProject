@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.DBManager;
-import model.Job;
 import model.Message;
-import model.User;
+
 
 public class MessageDAO {
 	
@@ -115,7 +114,7 @@ public class MessageDAO {
 	public static synchronized void readMessage(long messageID){
 		messages.get(messageID).setRead(true);
 		
-		String query = "UPDATE messages SET is_read 1 WHERE message_id = ?";
+		String query = "UPDATE messages SET is_read=1 WHERE message_id = ?";
 		PreparedStatement st;
 		try {
 			st = DBManager.getInstance().getConnection().prepareStatement(query);

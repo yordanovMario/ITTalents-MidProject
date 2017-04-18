@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 import model.DBManager;
 import model.Feedback;
-import model.Message;
-import model.User;
 
 public class FeedbackDAO {
 
@@ -20,7 +18,7 @@ public class FeedbackDAO {
 	private static HashMap<Long, Feedback> feedbacks = new HashMap<Long, Feedback>();
 		
 	private FeedbackDAO(){
-		
+		reloadCache();
 	}
 	
 	public static synchronized FeedbackDAO getInstance(){
@@ -88,22 +86,6 @@ public class FeedbackDAO {
 		}
 	}
 	
-	public static synchronized void getFeedbacks(User user){
-		String query = "select f.date, f.rating, f.content, u.first_name from feedbacks f join users u on f.receiver_id = u.user_id";
-		PreparedStatement ps;
-		try {
-			ps = DBManager.getInstance().getConnection().prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				String date = rs.getString(1);
-				String rating = rs.getString(2);
-				String content = rs.getString(3);
-				String first_name = rs.getString(4);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public static synchronized ArrayList<Feedback> getReceived(long id){
 		return receivedUser.get(id);
@@ -112,7 +94,7 @@ public class FeedbackDAO {
 	public static synchronized void readMessage(long feedbackID){
 		feedbacks.get(feedbackID).setSeen(true);
 		
-		String query = "UPDATE feedbacks SET is_read 1 WHERE feedback_id = ?";
+		String query = "UPDATE feedbacks SET is_read=1 WHERE feedback_id = ?";
 		PreparedStatement st;
 		try {
 			st = DBManager.getInstance().getConnection().prepareStatement(query);
