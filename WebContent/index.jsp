@@ -25,6 +25,7 @@
 					<c:if test="${logged eq true}">
 					<a href="postjob">Post Job</a>	
 					<a href="browsejobs">Browse All Jobs</a>
+					<a href="contact">Contact Us</a>
 					<a href="logout">Log Out</a>
 					<div class="flowe-blue-button">
 					<p class="flowe-signup-button"><a href="profile">${sessionScope['name']}</a></p>
@@ -32,6 +33,7 @@
 					<c:if test="${logged eq false}">
 					<a href="LogIn.html">Post Job</a>	
 					<a href="LogIn.html">Browse All Jobs</a>
+					<a href="contact">Contact Us</a>
 					<a href="LogIn.html">Log In</a>
 					<div class="flowe-blue-button">
 					<p class="flowe-signup-button"><a href="SignUp.html">Sign Up</a></p>
