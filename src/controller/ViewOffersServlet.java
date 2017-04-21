@@ -23,10 +23,8 @@ public class ViewOffersServlet extends HttpServlet {
 			System.out.println(request.getParameter("id"));
 			ArrayList<Offer> offers = OfferDAO.getInstance().getJobOffers(id);
 			if(offers == null){
-				//request.setAttribute("offers", "No offers for your job");
 				request.setAttribute("offers", offers);
 				getServletContext().getRequestDispatcher("/viewoffers.jsp").forward(request, response);
-				System.out.println(offers.isEmpty()); //?
 			}
 			else{
 				request.setAttribute("offers", offers);

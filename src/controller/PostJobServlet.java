@@ -35,6 +35,8 @@ public class PostJobServlet extends HttpServlet {
 		String category = req.getParameter("category");
 		String reqExp = req.getParameter("reqExp");
 		String expire = req.getParameter("expire");
+		int expireInt = Integer.parseInt(expire);
+		expireInt = (expireInt==1 ? 7 : expireInt==2 ? 14 : expireInt==3 ? 21 : 7);
 		boolean isSponsored = false;
 		String page = "index.jsp";
 		if (session.getAttribute("logged") != null || session.getAttribute("user") != null) {
@@ -44,7 +46,7 @@ public class PostJobServlet extends HttpServlet {
 			}
 			if(valid){
 				System.out.println(user+" in postjobservlet");
-				Job job = new Job(user, title, desc, Integer.parseInt(budget), Integer.parseInt(category), Integer.parseInt(reqExp), isSponsored, Integer.parseInt(expire), null);
+				Job job = new Job(user, title, desc, Integer.parseInt(budget), Integer.parseInt(category), Integer.parseInt(reqExp), isSponsored, expireInt, null);
 				try {
 					JobDAO.getInstance().postJob(job);
 				} catch (SQLException e) {
